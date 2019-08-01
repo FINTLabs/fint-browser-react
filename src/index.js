@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -8,14 +8,15 @@ function NavigationApp() {
     const [json, setJson] = useState('');
 
     useEffect(() => {
-        console.log("useEffect Triggered")
+        console.log("useEffect Triggered");
+        console.log(url);
         fetch(url)
             .then(res => res.json())
             .then((result) => {
                     setJson(result);
                 }
             )
-    });
+    }, [url]);
 
     const DataField = ({data}) => {
         let propertyKeys = [];
@@ -57,7 +58,7 @@ function NavigationApp() {
     return (
         <div>
             <Header/>
-            <DataField data={json}></DataField>
+            <DataField data={json}/>
         </div>
     );
 }
