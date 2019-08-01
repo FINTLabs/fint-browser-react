@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import Link from "@material-ui/core/Link";
 
 function NavigationApp() {
     const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/14029923273');
@@ -49,7 +50,7 @@ function NavigationApp() {
             </div>);
         } else {
             if (typeof data === 'string' && validURL(data)) {
-                return <button onClick={() => setURL(data)}>{data}</button>
+                return <Link onClick={() => setURL(data)}>{data}</Link>
             }
             return <p><b>{data}</b></p>;
         }
