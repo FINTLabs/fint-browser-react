@@ -97,16 +97,16 @@ function NavigationApp2() {
                 if (key != "_links") {
                     if (Array.isArray(json[key])) {
                         console.log(key + json[key]);
-                        collection.push(key);
+                        collection.push(key + ": ");
                         for (const entry in json[key]) {
                             collection.push(<div>{getData(json[key])}</div>)
                         }
                     } else if (typeof json[key] == "object") {
-                        collection.push(<div>{key}</div>);
+                        collection.push(<div>{key}: </div>);
                         collection.push(<div>{getData(json[key])}</div>);
                     } else {
                         (!Array.isArray(json)) ?
-                            collection.push(<div>{key}: {json[key]}</div>) : collection.push(<div>{json[key]}</div>);
+                            collection.push(<div>{key}: {json[key]}</div>) : collection.push(json[key]);
                     }
                 }
             }
