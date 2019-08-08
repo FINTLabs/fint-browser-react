@@ -7,10 +7,10 @@ import Button from '@material-ui/core/Button';
 function NavigationApp() {
     const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/14029923273');
     const [json, setJson] = useState('');
+    let [history, addHistory] = useState([url]);
 
     useEffect(() => {
         console.log("useEffect Triggered");
-        console.log(url);
         fetch(url)
             .then(res => res.json())
             .then((result) => {
@@ -26,7 +26,6 @@ function NavigationApp() {
             for (const key in json) {
                 if (key !== "_links") {
                     if (Array.isArray(json[key])) {
-                        console.log(key + json[key]);
                         collection.push(key + ": ");
                         for (const entry in json[key]) {
                             collection.push(<div>{getData(json[entry])}</div>)
@@ -46,6 +45,11 @@ function NavigationApp() {
         return collection;
     }
 
+    function setNewState(href) {
+        let newHistory = history.concat(href);
+        addHistory(newHistory);
+        setURL(href);
+    }
 
     function Links() {
         let linksCollection = [];
@@ -56,7 +60,7 @@ function NavigationApp() {
                     if (links[key][i].hasOwnProperty("href")) {
                         linksCollection.push(<div>
                             <p><Button color={"secondary"}
-                                       onClick={() => setURL(links[key][i].href)}>{key}: {links[key][i].href}</Button>
+                                       onClick={() => setNewState(links[key][i].href)}>{key}: {links[key][i].href}</Button>
 
                             </p>
                         </div>);
@@ -69,8 +73,24 @@ function NavigationApp() {
 
     }
 
+    function resetHistory(string) {
+        setURL(string);
+        addHistory = string;
+        console.log(history);
+    }
+
+    function History() {
+        console.log(history);
+        let historyButtons = [];
+        for (let i = 1; i <history.length; i++) {
+            const historyButtonText = history[i].slice(42);
+            historyButtons.push(<Button onClick={() => resetHistory(history[i])}>Steg {i}: {historyButtonText}</Button>);
+        }
+        return historyButtons;
+    }
 
     return (<div>
+        <History></History>
         <Data></Data>
         <Links></Links>
     </div>);
