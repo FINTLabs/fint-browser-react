@@ -40,7 +40,6 @@ function NavigationApp() {
                 }
             }
         }
-
         getData(json);
         return collection;
     }
@@ -60,8 +59,7 @@ function NavigationApp() {
                     if (links[key][i].hasOwnProperty("href")) {
                         linksCollection.push(<div>
                             <p><Button color={"secondary"}
-                                       onClick={() => setNewState(links[key][i].href)}>{key}: {links[key][i].href}</Button>
-
+                                       onClick={() => setNewState(links[key][i].href)}>{key}: {links[key][i].href.slice(42)}</Button>
                             </p>
                         </div>);
                     }
@@ -70,21 +68,21 @@ function NavigationApp() {
             }
         }
         return <div>{linksCollection}</div>;
-
     }
 
     function resetHistory(string) {
         setURL(string);
-        addHistory = string;
+        addHistory([string]);
         console.log(history);
     }
 
     function History() {
         console.log(history);
         let historyButtons = [];
-        for (let i = 1; i <history.length; i++) {
+        for (let i = 0; i < history.length; i++) {
             const historyButtonText = history[i].slice(42);
-            historyButtons.push(<Button onClick={() => resetHistory(history[i])}>Steg {i}: {historyButtonText}</Button>);
+            historyButtons.push(<Button color={"primary"}
+                                        onClick={() => resetHistory(history[i])}>Steg {i}: {historyButtonText}</Button>);
         }
         return historyButtons;
     }
