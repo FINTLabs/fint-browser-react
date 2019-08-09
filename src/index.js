@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Button from '@material-ui/core/Button';
+import ObjectViewer from "./object_viewer";
 
 function NavigationApp() {
-    const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/14029923273');
-    const [json, setJson] = useState('');
+    const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/18010197461');
+    let [json, setJson] = useState('');
     let [history, addHistory] = useState([url]);
 
     useEffect(() => {
-        console.log("useEffect Triggered");
         fetch(url)
             .then(res => res.json())
             .then((result) => {
@@ -19,31 +19,7 @@ function NavigationApp() {
             )
     }, [url]);
 
-    function Data() {
-        let collection = [];
 
-        function getData(json) {
-            for (const key in json) {
-                if (key !== "_links") {
-                    if (Array.isArray(json[key])) {
-                        collection.push(<div>{key}: </div>);
-                        for (const entry in json[key]) {
-                            collection.push(<div>{getData(json[entry])}</div>)
-                        }
-                    } else if (typeof json[key] == "object") {
-                        collection.push(<div>{key}: </div>);
-                        collection.push(<div>{getData(json[key])}</div>);
-                    } else {
-                        (!Array.isArray(json)) ?
-                            collection.push(<div>{key}: {json[key]}</div>) : collection.push(json[key]);
-                    }
-                }
-            }
-        }
-
-        getData(json);
-        return collection;
-    }
 
     function setNewState(href) {
         let newHistory = history.concat(href);
@@ -59,9 +35,8 @@ function NavigationApp() {
                 for (let i = 0; i < links[key].length; i++) {
                     if (links[key][i].hasOwnProperty("href")) {
                         linksCollection.push(<div>
-                            <p><Button color={"secondary"}
+                            <Button color={"secondary"}
                                        onClick={() => setNewState(links[key][i].href)}>{key}: {links[key][i].href.slice(42)}</Button>
-                            </p>
                         </div>);
                     }
                 }
@@ -74,11 +49,9 @@ function NavigationApp() {
     function resetHistory(string) {
         setURL(string);
         addHistory([string]);
-        console.log(history);
     }
 
     function History() {
-        console.log(history);
         let historyButtons = [];
         for (let i = 0; i < history.length; i++) {
             const historyButtonText = history[i].slice(42);
@@ -90,7 +63,7 @@ function NavigationApp() {
 
     return (<div>
         <History></History>
-        <Data></Data>
+        <ObjectViewer object={json}/>
         <Links></Links>
     </div>);
 }
