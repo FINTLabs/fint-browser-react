@@ -26,7 +26,7 @@ function NavigationApp() {
             for (const key in json) {
                 if (key !== "_links") {
                     if (Array.isArray(json[key])) {
-                        collection.push(key + ": ");
+                        collection.push(<div>{key}: </div>);
                         for (const entry in json[key]) {
                             collection.push(<div>{getData(json[entry])}</div>)
                         }
@@ -40,6 +40,7 @@ function NavigationApp() {
                 }
             }
         }
+
         getData(json);
         return collection;
     }
