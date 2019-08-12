@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Button from '@material-ui/core/Button';
-import ObjectViewer from "./object_viewer";
+import JsonExtractor from "./json_extracter";
 
 function NavigationApp() {
     const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/18010197461');
     let [json, setJson] = useState('');
     let [history, addHistory] = useState([url]);
+
+    const buttonsMargin = {
+        margin: 10
+    };
 
     useEffect(() => {
         fetch(url)
@@ -19,12 +23,19 @@ function NavigationApp() {
             )
     }, [url]);
 
-
-
     function setNewState(href) {
         let newHistory = history.concat(href);
         addHistory(newHistory);
         setURL(href);
+    }
+
+    function getDomainPackageClass(path) {
+        let newPath = "";
+        let pathParts = path.split("/");
+        for (let j = pathParts.length - 3; j < pathParts.length; j++) {
+            newPath = newPath + pathParts[j] + "/";
+        }
+        return newPath;
     }
 
     function Links() {
@@ -34,9 +45,14 @@ function NavigationApp() {
             for (let key in links) {
                 for (let i = 0; i < links[key].length; i++) {
                     if (links[key][i].hasOwnProperty("href")) {
+                        let buttonText = getDomainPackageClass(links[key][i].href);
                         linksCollection.push(<div>
-                            <Button color={"secondary"}
-                                       onClick={() => setNewState(links[key][i].href)}>{key}: {links[key][i].href.slice(42)}</Button>
+                            <Button
+                                size={"small"}
+                                style={buttonsMargin}
+                                variant={"contained"}
+                                color={"secondary"}
+                                onClick={() => setNewState(links[key][i].href)}>{key}: {buttonText}</Button>
                         </div>);
                     }
                 }
@@ -54,16 +70,20 @@ function NavigationApp() {
     function History() {
         let historyButtons = [];
         for (let i = 0; i < history.length; i++) {
-            const historyButtonText = history[i].slice(42);
-            historyButtons.push(<Button color={"primary"}
-                                        onClick={() => resetHistory(history[i])}>Steg {i}: {historyButtonText}</Button>);
+            let historyButtonText = getDomainPackageClass(history[i]);
+            historyButtons.push(<div><Button
+                size={"small"}
+                style={buttonsMargin}
+                variant={"contained"}
+                color={"primary"}
+                onClick={() => resetHistory(history[i])}>Steg {i}: {historyButtonText}</Button></div>);
         }
         return historyButtons;
     }
 
     return (<div>
         <History></History>
-        <ObjectViewer object={json}/>
+        <JsonExtractor object={json}/>
         <Links></Links>
     </div>);
 }
