@@ -2,17 +2,18 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Button from '@material-ui/core/Button';
 import JsonExtractor from "./json_extracter";
+import History from "./history";
+import Links from "./links";
+
+export const buttonsMargin = {
+    margin: 10
+};
 
 function NavigationApp() {
     const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/18010197461');
     let [json, setJson] = useState('');
     let [history, addHistory] = useState([url]);
-
-    const buttonsMargin = {
-        margin: 10
-    };
 
     useEffect(() => {
         fetch(url)
@@ -28,64 +29,24 @@ function NavigationApp() {
         addHistory(newHistory);
         setURL(href);
     }
-
-    function getDomainPackageClass(path) {
-        let newPath = "";
-        let pathParts = path.split("/");
-        for (let j = pathParts.length - 3; j < pathParts.length; j++) {
-            newPath = newPath + pathParts[j] + "/";
-        }
-        return newPath;
-    }
-
-    function Links() {
-        let linksCollection = [];
-        if (json.hasOwnProperty("_links")) {
-            const links = json._links;
-            for (let key in links) {
-                for (let i = 0; i < links[key].length; i++) {
-                    if (links[key][i].hasOwnProperty("href")) {
-                        let buttonText = getDomainPackageClass(links[key][i].href);
-                        linksCollection.push(<div>
-                            <Button
-                                size={"small"}
-                                style={buttonsMargin}
-                                variant={"contained"}
-                                color={"secondary"}
-                                onClick={() => setNewState(links[key][i].href)}>{key}: {buttonText}</Button>
-                        </div>);
-                    }
-                }
-
-            }
-        }
-        return <div>{linksCollection}</div>;
-    }
-
     function resetHistory(string) {
         setURL(string);
         addHistory([string]);
     }
 
-    function History() {
-        let historyButtons = [];
-        for (let i = 0; i < history.length; i++) {
-            let historyButtonText = getDomainPackageClass(history[i]);
-            historyButtons.push(<div><Button
-                size={"small"}
-                style={buttonsMargin}
-                variant={"contained"}
-                color={"primary"}
-                onClick={() => resetHistory(history[i])}>Steg {i}: {historyButtonText}</Button></div>);
-        }
-        return historyButtons;
-    }
-
     return (<div>
-        <History></History>
+        <History historyCollection={history}></History>
         <JsonExtractor object={json}/>
-        <Links></Links>
+        <Links object={json}></Links>
     </div>);
+}
+export function getDomainPackageClass(path) {
+    let newPath = "";
+    let pathParts = path.split("/");
+    for (let j = pathParts.length - 3; j < pathParts.length; j++) {
+        newPath = newPath + pathParts[j] + "/";
+    }
+    return newPath;
 }
 
 ReactDOM.render(<NavigationApp/>, document.getElementById('root'));
