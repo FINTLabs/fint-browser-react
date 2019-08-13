@@ -18,7 +18,7 @@ export default function JsonExtractor(props) {
                 collection.push(<div style={styleValues}>{key}: {data[key]}</div>);
             }
         } else {
-            if (key.length > 1) {
+            if (typeof key !== "number") {
                 collection.push(<div style={styleIdentifiers}>{key}</div>);
             }
             for (const entry in data[key]) {
@@ -29,6 +29,7 @@ export default function JsonExtractor(props) {
 
     function getData(json) {
         if (json) {
+            console.log(json);
             Object.keys(json).forEach(key => {
                 if (key !== "_links") {
                     if (foundEndValues(key, json)) {

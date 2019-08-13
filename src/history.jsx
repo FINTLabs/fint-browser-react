@@ -5,6 +5,7 @@ import {buttonsMargin} from "./index";
 
 export default function History(props) {
     const {historyCollection} = props;
+    const {onClick} = props;
     let historyButtons = [];
     for (let i = 0; i < historyCollection.length; i++) {
         let historyButtonText = getDomainPackageClass(historyCollection[i]);
@@ -13,7 +14,7 @@ export default function History(props) {
             style={buttonsMargin}
             variant={"contained"}
             color={"primary"}
-            onClick={() => resetHistory(historyCollection[i])}>Steg {i}: {historyButtonText}</Button></div>);
+            onClick={() => onClick(historyCollection[i])}>Steg {i}: {historyButtonText}</Button></div>);
     }
     return historyButtons;
 }

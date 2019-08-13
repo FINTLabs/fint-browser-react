@@ -5,6 +5,7 @@ import {buttonsMargin} from "./index";
 
 export default function Links(props) {
     const {object} = props;
+    const {onClick} = props;
     let linksCollection = [];
     if (object.hasOwnProperty("_links")) {
         const links = object._links;
@@ -18,7 +19,7 @@ export default function Links(props) {
                             style={buttonsMargin}
                             variant={"contained"}
                             color={"secondary"}
-                            onClick={() => setNewState(links[key][i].href)}>{key}: {buttonText}</Button>
+                            onClick={() => onClick(links[key][i].href)}>{key}: {buttonText}</Button>
                     </div>);
                 }
             }

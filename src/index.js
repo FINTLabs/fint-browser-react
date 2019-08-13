@@ -35,9 +35,9 @@ function NavigationApp() {
     }
 
     return (<div>
-        <History historyCollection={history}></History>
+        <History historyCollection={history} onClick={resetHistory}/>
         <JsonExtractor object={json}/>
-        <Links object={json}></Links>
+        <Links object={json} onClick={setNewState}/>
     </div>);
 }
 export function getDomainPackageClass(path) {
