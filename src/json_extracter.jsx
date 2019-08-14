@@ -1,4 +1,5 @@
 import React from 'react';
+import {Container} from "@material-ui/core";
 
 export default function JsonExtractor(props) {
     let collection = [];
@@ -63,5 +64,5 @@ export default function JsonExtractor(props) {
         return /^\d+$/.test(string);
     }
 
-    return collection;
+    return <Container>{collection}</Container>;
 }

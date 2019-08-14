@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
 import {buttonsMargin, getDomainPackageClass} from "./index";
+import {Container} from "@material-ui/core";
 
 export default function History(props) {
     const {historyCollection} = props;
@@ -15,5 +16,5 @@ export default function History(props) {
             color={"primary"}
             onClick={() => onClick(historyCollection[i])}>Steg {i}: {historyButtonText}</Button></div>);
     }
-    return historyButtons;
+    return <Container>{historyButtons}</Container>;
 }

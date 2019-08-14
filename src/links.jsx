@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
 import {buttonsMargin, getDomainPackageClass} from "./index";
+import {Container} from "@material-ui/core";
 
 export default function Links(props) {
     const {object} = props;
@@ -25,5 +26,5 @@ export default function Links(props) {
 
         }
     }
-    return <div>{linksCollection}</div>;
+    return <Container>{linksCollection}</Container>;
 }

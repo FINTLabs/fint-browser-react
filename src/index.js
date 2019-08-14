@@ -5,6 +5,8 @@ import * as serviceWorker from './serviceWorker';
 import History from "./history";
 import Links from "./links";
 import JsonExtractor from "./json_extracter";
+import {styled} from '@material-ui/styles';
+import {Container} from "@material-ui/core";
 
 export const buttonsMargin = {
     margin: 10
@@ -14,6 +16,16 @@ function NavigationApp() {
     const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/18010197461');
     let [json, setJson] = useState('');
     let [history, addHistory] = useState([url]);
+
+    const MyHistoryContatiner = styled(Container)({
+        background: '#D3D3D3',
+        color: 'white',
+        padding: '0 30px',
+    });
+    const MyJsonContatiner = styled(Container)({
+        color: 'white',
+        padding: '0 30px',
+    });
 
     useEffect(() => {
         fetch(url)
@@ -36,10 +48,15 @@ function NavigationApp() {
     }
 
     return (<div>
-        <History strstory historyCollection={history} onClick={resetHistory}/>
-        <JsonExtractor object={json}/>
-        <Links object={json} onClick={setNewState}/>
-    </div>);
+            <MyHistoryContatiner>
+                <History historyCollection={history} onClick={resetHistory}/>
+            </MyHistoryContatiner>
+            <MyJsonContatiner>
+                <JsonExtractor object={json}/>
+            </MyJsonContatiner>
+            <Links object={json} onClick={setNewState}/>
+        </div>
+    );
 }
 
 export function getDomainPackageClass(path) {
