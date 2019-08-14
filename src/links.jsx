@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
-import {getDomainPackageClass} from "./index";
-import {buttonsMargin} from "./index";
+import {buttonsMargin, getDomainPackageClass} from "./index";
 
 export default function Links(props) {
     const {object} = props;

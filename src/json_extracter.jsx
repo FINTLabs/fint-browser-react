@@ -3,56 +3,51 @@ import React from 'react';
 export default function JsonExtractor(props) {
     let collection = [];
     const {object} = props;
-    const styleIdentifiers = {
-        paddingLeft: 10
-    }
-    const styleValues = {
-        paddingLeft: 30
-    }
-
-    function fillCollection(key, data) {
-        if (!isArray(data[key]) && !isObject(data[key])) {
-            if (isArray(data)) {
-                collection.push(<div style={styleValues}>{data[key]}</div>);
-            } else {
-                collection.push(<div style={styleValues}>{key}: {data[key]}</div>);
-            }
-        } else {
-            if (typeof key !== "number") {
-                collection.push(<div style={styleIdentifiers}>{key}</div>);
-            }
-            for (const entry in data[key]) {
-                fillCollection(entry, data[key]);
-            }
-        }
-    }
 
     function getData(json) {
+        let array = [];
         if (json) {
             console.log(json);
-            Object.keys(json).forEach(key => {
-                if (key !== "_links") {
-                    if (foundEndValues(key, json)) {
-                        fillCollection(key, json);
-                    } else {
-                        collection.push(<div style={styleIdentifiers}>{key}</div>);
-                        getData(json[key]);
+            if (typeof json === "string" || typeof json === "number" || typeof json === "boolean") {
+                array.push(json);
+            } else if (isArray(json) || isObject(json)) {
+                Object.keys(json).forEach(key => {
+                    if (key !== "_links") {
+                        if (!isStringANumber(key)) {
+                            console.log("key:", key)
+                            array.push(key);
+                        }
+                        array.push(getData(json[key]));
                     }
-                }
-            });
+                });
+            }
         }
+        return array;
     }
 
-    function foundEndValues(key, data) {
-        if (isArray(data[key]) || isObject(data[key])) {
-            for (const entry in data[key]) {
-                if (isArray(data[key][entry]) || isObject(data[key][entry])) {
-                    return false;
-                }
+
+    collection.push(getData(object, collection));
+    console.table(collection);
+
+    function addDivToValuesInArray(array, depth) {
+        const myColor = ['black', 'red', 'blue', 'green', 'orange', 'purple', 'black', 'red', 'blue', 'orange', 'green'];
+        const myStyle = {
+            marginTop: 0,
+            marginBottom: 0,
+            marginLeft: depth * 25,
+            color: myColor[depth - 1]
+        };
+        for (let i = 0; i < array.length; i++) {
+            if (Array.isArray(array[i])) {
+                addDivToValuesInArray(array[i], depth + 1);
+            } else {
+                array[i] = <p style={myStyle}>{array[i]}</p>;
             }
-            return true;
-        } else return true;
+        }
+        return array;
     }
+
+    collection = addDivToValuesInArray(collection, 0);
 
     function isArray(data) {
         return Array.isArray(data);
@@ -62,6 +57,9 @@ export default function JsonExtractor(props) {
         return typeof data === "object";
     }
 
-    getData(object);
+    function isStringANumber(string) {
+        return /^\d+$/.test(string);
+    }
+
     return collection;
 }

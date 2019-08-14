@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import JsonExtractor from "./json_extracter";
 import History from "./history";
 import Links from "./links";
+import JsonExtractor from "./json_extracter";
 
 export const buttonsMargin = {
     margin: 10
@@ -29,17 +29,19 @@ function NavigationApp() {
         addHistory(newHistory);
         setURL(href);
     }
+
     function resetHistory(string) {
         setURL(string);
         addHistory([string]);
     }
 
     return (<div>
-        <History historyCollection={history} onClick={resetHistory}/>
+        <History strstory historyCollection={history} onClick={resetHistory}/>
         <JsonExtractor object={json}/>
         <Links object={json} onClick={setNewState}/>
     </div>);
 }
+
 export function getDomainPackageClass(path) {
     let newPath = "";
     let pathParts = path.split("/");
