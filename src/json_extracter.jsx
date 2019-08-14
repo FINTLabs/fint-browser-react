@@ -6,9 +6,13 @@ export default function JsonExtractor(props) {
 
     function getData(json) {
         let array = [];
-        if (json) {
             console.log(json);
             if (typeof json === "string" || typeof json === "number" || typeof json === "boolean") {
+                if (typeof json === "boolean"){
+                    if (json){
+                        array.push("true");
+                    }else {array.push("false")}
+                }
                 array.push(json);
             } else if (isArray(json) || isObject(json)) {
                 Object.keys(json).forEach(key => {
@@ -21,10 +25,8 @@ export default function JsonExtractor(props) {
                     }
                 });
             }
-        }
         return array;
     }
-
 
     collection.push(getData(object, collection));
     console.table(collection);
