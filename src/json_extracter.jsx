@@ -1,5 +1,8 @@
 import React from 'react';
-import {Container} from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import Table from "@material-ui/core/Table";
+import TableCell from "@material-ui/core/TableCell";
+import {TableRow} from "@material-ui/core";
 
 export default function JsonExtractor(props) {
     let collection = [];
@@ -7,30 +10,32 @@ export default function JsonExtractor(props) {
 
     function getData(json) {
         let array = [];
-            console.log(json);
-            if (typeof json === "string" || typeof json === "number" || typeof json === "boolean") {
-                if (typeof json === "boolean"){
-                    if (json){
-                        array.push("true");
-                    }else {array.push("false")}
+        console.log(json);
+        if (typeof json === "string" || typeof json === "number" || typeof json === "boolean") {
+            if (typeof json === "boolean") {
+                if (json) {
+                    array.push("true");
+                } else {
+                    array.push("false")
                 }
-                array.push(json);
-            } else if (isArray(json) || isObject(json)) {
-                Object.keys(json).forEach(key => {
-                    if (key !== "_links") {
-                        if (!isStringANumber(key)) {
-                            console.log("key:", key)
-                            array.push(key);
-                        }
-                        array.push(getData(json[key]));
-                    }
-                });
             }
+            array.push(json);
+        } else if (isArray(json) || isObject(json)) {
+            Object.keys(json).forEach(key => {
+                if (key !== "_links") {
+                    if (!isStringANumber(key)) {
+                        console.log("key:", key)
+                        array.push(key);
+                    }
+                    array.push(getData(json[key]));
+                }
+            });
+        }
         return array;
     }
 
     collection.push(getData(object, collection));
-    console.table(collection);
+    console.log(collection);
 
     function addDivToValuesInArray(array, depth) {
         const myColor = ['black', 'red', 'blue', 'green', 'orange', 'purple', 'black', 'red', 'blue', 'orange', 'green'];
@@ -50,7 +55,6 @@ export default function JsonExtractor(props) {
         return array;
     }
 
-    collection = addDivToValuesInArray(collection, 0);
 
     function isArray(data) {
         return Array.isArray(data);
@@ -64,5 +68,32 @@ export default function JsonExtractor(props) {
         return /^\d+$/.test(string);
     }
 
-    return <Container>{collection}</Container>;
+    function createTable(data) {
+        return (
+            <Table>{
+                data.map(entry => {
+                    if (isArray(entry)) {
+                        return (createCellsAndRow(entry));
+                    }else{
+                        return <TableCell>{entry}</TableCell>;
+                    }
+
+                    }
+                )
+            }</Table>);
+    }
+
+    function createCellsAndRow(data) {
+            return (data.map(entry => {
+                if (isArray(entry)) {
+                    return <TableRow>{createTable(entry)}</TableRow>
+                }
+                else {
+                    return <TableCell>{entry}</TableCell>;
+                }
+
+            }));
+    }
+
+    return <Card>{createTable(collection)}</Card>;
 }

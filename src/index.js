@@ -6,7 +6,25 @@ import History from "./history";
 import Links from "./links";
 import JsonExtractor from "./json_extracter";
 import {styled} from '@material-ui/styles';
-import {Container} from "@material-ui/core";
+import {Container, createMuiTheme, MuiThemeProvider} from "@material-ui/core";
+import TopBanner from "./top_banner";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            light: '#f05545',
+            main: '#b71c1c',
+            dark: '#7f0000',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#98ee99',
+            main: '#66bb6a',
+            dark: '#338a3e',
+            contrastText: '#000',
+        },
+    },
+});
 
 export const buttonsMargin = {
     margin: 10
@@ -18,7 +36,7 @@ function NavigationApp() {
     let [history, addHistory] = useState([url]);
 
     const MyHistoryContatiner = styled(Container)({
-        background: '#D3D3D3',
+        //background: '#FFFFFF',
         color: 'white',
         padding: '0 30px',
     });
@@ -47,7 +65,8 @@ function NavigationApp() {
         addHistory([string]);
     }
 
-    return (<div>
+    return (<MuiThemeProvider theme={theme}>
+            <TopBanner/>
             <MyHistoryContatiner>
                 <History historyCollection={history} onClick={resetHistory}/>
             </MyHistoryContatiner>
@@ -55,7 +74,7 @@ function NavigationApp() {
                 <JsonExtractor object={json}/>
             </MyJsonContatiner>
             <Links object={json} onClick={setNewState}/>
-        </div>
+        </MuiThemeProvider>
     );
 }
 
