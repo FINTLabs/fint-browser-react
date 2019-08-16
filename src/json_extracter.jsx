@@ -3,6 +3,7 @@ import Card from "@material-ui/core/Card";
 import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
 import {TableRow} from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 
 export default function JsonExtractor(props) {
     let collection = [];
@@ -69,27 +70,26 @@ export default function JsonExtractor(props) {
 
     function createTable(data) {
         return (
-            <Table>{
+            <Card style={{width: 'auto', display:'inline-block', margin: 10, verticalAlign:'text-top'}}><Table size={"small"} style={{width: 'auto'}}>{
                 data.map(entry => {
-                        if (isArray(entry)) {
-                            return (<TableRow>{createCellsAndRow(entry)}</TableRow>);
-                        } else {
-                            return <TableCell>{entry}</TableCell>;
-                        }
-
+                       return createCellsAndRow(entry,0);
                     }
                 )
-            }</Table>);
+            }</Table></Card>);
     }
 
-    function createCellsAndRow(data) {
-        return (data.map(entry => {
-            if (isArray(entry)) {
-                return <TableRow>{createTable(entry)}</TableRow>
-            } else {
-                return <TableCell>{entry}</TableCell>;
+    function createCellsAndRow(data, depth) {
+        if (isArray(data)){
+            return data.map(entry => {
+                return <TableRow>{createCellsAndRow(entry, ++depth)}</TableRow>;
+            })
+        }else{
+            if (depth===0){
+                return <TableCell><b>{data}</b></TableCell>;
+            }else{
+                return <TableCell>{data}</TableCell>;
             }
-        }));
+        }
     }
 
     console.log("Min Collection:", collection);
@@ -105,5 +105,5 @@ export default function JsonExtractor(props) {
     }
 
     console.log("CollectionToSend", collectionToSend);
-    return <Card>{collectionToSend}</Card>;
+    return <Container>{collectionToSend}</Container>;
 }
