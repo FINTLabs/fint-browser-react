@@ -10,7 +10,7 @@ export default function JsonExtractor(props) {
 
     function getData(json) {
         let array = [];
-        console.log(json);
+        //console.log(json);
         if (typeof json === "string" || typeof json === "number" || typeof json === "boolean") {
             if (typeof json === "boolean") {
                 if (json) {
@@ -24,7 +24,7 @@ export default function JsonExtractor(props) {
             Object.keys(json).forEach(key => {
                 if (key !== "_links") {
                     if (!isStringANumber(key)) {
-                        console.log("key:", key)
+                        //console.log("key:", key)
                         array.push(key);
                     }
                     array.push(getData(json[key]));
@@ -35,7 +35,6 @@ export default function JsonExtractor(props) {
     }
 
     collection.push(getData(object, collection));
-    console.log(collection);
 
     function addDivToValuesInArray(array, depth) {
         const myColor = ['black', 'red', 'blue', 'green', 'orange', 'purple', 'black', 'red', 'blue', 'orange', 'green'];
@@ -72,11 +71,11 @@ export default function JsonExtractor(props) {
         return (
             <Table>{
                 data.map(entry => {
-                    if (isArray(entry)) {
-                        return (createCellsAndRow(entry));
-                    }else{
-                        return <TableCell>{entry}</TableCell>;
-                    }
+                        if (isArray(entry)) {
+                            return (<TableRow>{createCellsAndRow(entry)}</TableRow>);
+                        } else {
+                            return <TableCell>{entry}</TableCell>;
+                        }
 
                     }
                 )
@@ -84,16 +83,27 @@ export default function JsonExtractor(props) {
     }
 
     function createCellsAndRow(data) {
-            return (data.map(entry => {
-                if (isArray(entry)) {
-                    return <TableRow>{createTable(entry)}</TableRow>
-                }
-                else {
-                    return <TableCell>{entry}</TableCell>;
-                }
-
-            }));
+        return (data.map(entry => {
+            if (isArray(entry)) {
+                return <TableRow>{createTable(entry)}</TableRow>
+            } else {
+                return <TableCell>{entry}</TableCell>;
+            }
+        }));
     }
 
-    return <Card>{createTable(collection)}</Card>;
+    console.log("Min Collection:", collection);
+    let collectionToSend = [];
+    for (let i = 0; i < collection[0].length; i) {
+        console.log("i:", i);
+        let newCollection = [];
+        newCollection.push(collection[0][i]);
+        while(isArray(collection[0][++i])){
+            newCollection.push(collection[0][i]);
+        }
+        collectionToSend.push(createTable(newCollection));
+    }
+
+    console.log("CollectionToSend", collectionToSend);
+    return <Card>{collectionToSend}</Card>;
 }
