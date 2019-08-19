@@ -2,6 +2,7 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import {buttonsMargin, getDomainPackageClass} from "./index";
 import {Container} from "@material-ui/core";
+import List from "@material-ui/core/List";
 
 export default function Links(props) {
     const {object} = props;
@@ -9,7 +10,12 @@ export default function Links(props) {
     let linksCollection = [];
     if (object.hasOwnProperty("_links")) {
         const links = object._links;
-        for (let key in links) {
+        linksCollection = <List>{links.map(subject => {
+            subject.map(entry => {
+
+            })
+        })}</List>;
+        /*for (let key in links) {
             for (let i = 0; i < links[key].length; i++) {
                 if (links[key][i].hasOwnProperty("href")) {
                     let buttonText = getDomainPackageClass(links[key][i].href);
@@ -24,7 +30,7 @@ export default function Links(props) {
                 }
             }
 
-        }
+        }*/
     }
     return <Container>{linksCollection}</Container>;
 }

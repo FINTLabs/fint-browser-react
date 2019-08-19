@@ -39,6 +39,7 @@ function NavigationApp() {
         //background: '#FFFFFF',
         color: 'white',
         padding: '0 30px',
+        minHeight:'60px',
     });
     const MyJsonContatiner = styled(Container)({
         color: 'white',
@@ -68,7 +69,7 @@ function NavigationApp() {
     return (<MuiThemeProvider theme={theme}>
             <TopBanner/>
             <MyHistoryContatiner>
-                <History historyCollection={history} onClick={resetHistory}/>
+                <History style={{background:'#333333', margin:'auto'}} historyCollection={history} onClick={resetHistory}/>
             </MyHistoryContatiner>
             <MyJsonContatiner>
                 <JsonExtractor object={json}/>
@@ -82,7 +83,11 @@ export function getDomainPackageClass(path) {
     let newPath = "";
     let pathParts = path.split("/");
     for (let j = pathParts.length - 3; j < pathParts.length; j++) {
+        if (j+1=== pathParts.length){
+            newPath = newPath + pathParts[j];
+        }else{
         newPath = newPath + pathParts[j] + "/";
+        }
     }
     return newPath;
 }

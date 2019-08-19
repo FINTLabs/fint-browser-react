@@ -91,11 +91,8 @@ export default function JsonExtractor(props) {
             if (depth === 0) {
                 return <TableCell style={{fontWeight:'bold', fontSize:18}}>{capitalize.words(data)}</TableCell>;
             } else {
-                let calculatedFontSize = 18-2*depth;
-                if (calculatedFontSize<14)
-                    calculatedFontSize = 14;
                 return <TableCell
-                    style={{fontSize: calculatedFontSize, width: '100%', paddingLeft: depth * 15, color: createRGB(depth)}}>{capitalize.words(data)}</TableCell>;
+                    style={{width: '100%', paddingLeft: depth * 15, color: createRGB(depth)}}>{capitalize.words(data)}</TableCell>;
             }
         }
     }
