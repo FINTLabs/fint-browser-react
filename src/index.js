@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import History from "./history";
-import Links from "./links";
-import JsonExtractor from "./json_extracter";
-import {styled} from '@material-ui/styles';
-import {Container, createMuiTheme, MuiThemeProvider} from "@material-ui/core";
+import History from "./component/history/history";
+import LinkContainer from "./component/relation/link-container";
+import ObjectContainer from "./component/table/object_container";
+import {Box, Card, createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import TopBanner from "./top_banner";
+import Divider from "@material-ui/core/Divider";
 
 const theme = createMuiTheme({
     palette: {
@@ -26,25 +26,10 @@ const theme = createMuiTheme({
     },
 });
 
-export const buttonsMargin = {
-    margin: 10
-};
-
 function NavigationApp() {
     const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/18010197461');
     let [json, setJson] = useState('');
     let [history, addHistory] = useState([url]);
-
-    const MyHistoryContatiner = styled(Container)({
-        //background: '#FFFFFF',
-        color: 'white',
-        padding: '0 30px',
-        minHeight:'60px',
-    });
-    const MyJsonContatiner = styled(Container)({
-        color: 'white',
-        padding: '0 30px',
-    });
 
     useEffect(() => {
         fetch(url)
@@ -66,30 +51,22 @@ function NavigationApp() {
         addHistory([string]);
     }
 
-    return (<MuiThemeProvider theme={theme}>
+    return (
+        <MuiThemeProvider theme={theme}>
             <TopBanner/>
-            <MyHistoryContatiner>
-                <History style={{background:'#333333', margin:'auto'}} historyCollection={history} onClick={resetHistory}/>
-            </MyHistoryContatiner>
-            <MyJsonContatiner>
-                <JsonExtractor object={json}/>
-            </MyJsonContatiner>
-            <Links object={json} onClick={setNewState}/>
+            <History style={{background: '#333333', margin: 'auto'}} historyCollection={history}
+                     onClick={resetHistory}/>
+            <Box m={2}>
+                <Card>
+                    <ObjectContainer rawJson={json}/>
+                    <Divider/>
+                    <Box m={2}>
+                        <LinkContainer object={json} onClick={setNewState}/>
+                    </Box>
+                </Card>
+            </Box>
         </MuiThemeProvider>
     );
-}
-
-export function getDomainPackageClass(path) {
-    let newPath = "";
-    let pathParts = path.split("/");
-    for (let j = pathParts.length - 3; j < pathParts.length; j++) {
-        if (j+1=== pathParts.length){
-            newPath = newPath + pathParts[j];
-        }else{
-        newPath = newPath + pathParts[j] + "/";
-        }
-    }
-    return newPath;
 }
 
 ReactDOM.render(<NavigationApp/>, document.getElementById('root'));
