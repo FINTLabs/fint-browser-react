@@ -1,10 +1,11 @@
-import {isArray} from "../../utils/json_extracting_helpers";
+import {isArray} from "../../utils/json-extracting-helpers";
 import React from "react";
 import ObjectTable from "./object-table";
 
 const ObjectTableContainer = (props) => {
     let collection = [];
     const {entries} = props;
+
 
     for (let i = 0; i < entries.length; i) {
 
@@ -15,10 +16,9 @@ const ObjectTableContainer = (props) => {
         while (isArray(entries[++i])) {
             tempCollection.push(entries[i]);
         }
-
+        console.log("TableEntry: ", tempCollection);
         collection.push(<ObjectTable data={tempCollection}/>);
     }
-
     return collection;
 };
 

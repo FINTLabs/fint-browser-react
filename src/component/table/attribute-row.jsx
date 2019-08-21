@@ -1,5 +1,5 @@
 import React from 'react';
-import {createRGB, isArray} from "../../utils/json_extracting_helpers";
+import {createRGB, isArray} from "../../utils/json-extracting-helpers";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import {makeStyles} from "@material-ui/core";

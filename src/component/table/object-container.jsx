@@ -1,10 +1,9 @@
 import React from 'react';
-import {isArray, isObject, isStringANumber, isValue} from "../../utils/json_extracting_helpers";
-import ObjectTableContainer from "./object_table_container";
+import {isArray, isObject, isStringANumber, isValue} from "../../utils/json-extracting-helpers";
+import ObjectTableContainer from "./object-table-container";
 
 export default function ObjectContainer(props) {
     const {rawJson} = props;
-
 
     function buildEntryArray(json) {
         const array = [];
@@ -26,7 +25,6 @@ export default function ObjectContainer(props) {
                 array.push(json);
             }
         }
-
         function handleEntry(json) {
             Object.keys(json).forEach(key => {
                 if (key !== "_links") {
@@ -39,6 +37,5 @@ export default function ObjectContainer(props) {
         }
     }
 
-    console.log("e", buildEntryArray(rawJson));
     return <ObjectTableContainer entries={buildEntryArray(rawJson)}/>;
 }

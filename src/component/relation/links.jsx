@@ -1,5 +1,5 @@
 import React from 'react';
-import {getDomainPackageClass} from "../../utils/link_converter";
+import {getDomainPackageClass} from "../../utils/link-converter";
 import {Box, makeStyles, Typography} from "@material-ui/core";
 import {capitalize} from "@material-ui/core/utils";
 import Link from "@material-ui/core/Link";
@@ -7,7 +7,10 @@ import Link from "@material-ui/core/Link";
 const useStyles = makeStyles(theme => ({
     relationLabel: {
         marginRight: theme.spacing(1),
-    }
+    },
+    link: {
+        fontSize: '0.75rem',
+    },
 }));
 
 const Links = (props) => {
@@ -28,6 +31,7 @@ const Links = (props) => {
                                 {capitalize(key)}:
                             </Typography>
                             <Link component="button"
+                                  className={classes.link}
                                   onClick={() => onClick(links[key][i].href)}
                             >
                                 {buttonText}

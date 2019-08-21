@@ -1,5 +1,5 @@
 import React from 'react';
-import {getDomainPackageClass} from "../../utils/link_converter";
+import {getDomainPackageClass} from "../../utils/link-converter";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import {Box} from "@material-ui/core";

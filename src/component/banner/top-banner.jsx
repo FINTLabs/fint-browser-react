@@ -1,6 +1,6 @@
 import React from 'react';
 import AppBar from "@material-ui/core/AppBar";
-import Logo from './assets/fint_logo.png';
+import Logo from '../../assets/fint_logo.png';
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
