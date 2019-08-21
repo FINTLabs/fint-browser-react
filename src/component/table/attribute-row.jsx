@@ -18,10 +18,17 @@ const AttributeRow = (props) => {
     const {data, depth} = props;
 
     if (isArray(data)) {
-        return data.map(entry =>
-            <TableRow>
-                <AttributeRow data={entry} depth={depth + 1}/>
-            </TableRow>
+        return data.map(entry => {
+                if (isArray(entry)) {
+                    return (
+                        <AttributeRow data={entry} depth={depth + 1}/>
+                    )
+                } else {
+                    return (<TableRow>
+                        <AttributeRow data={entry} depth={depth + 1}/>
+                    </TableRow>);
+                }
+            }
         );
     } else {
         if (depth === 0) {
