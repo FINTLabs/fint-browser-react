@@ -20,16 +20,17 @@ const styles = theme => ({
         color: 'white',
         marginTop: 'auto',
         marginBottom: 'auto',
-        textAlign:'center',
+        textAlign: 'center',
     },
     homepage: {
         color: 'white',
     },
 
-})
+});
 
 const BottomBanner = (props) => {
     const {classes} = props;
+    // noinspection HtmlDeprecatedAttribute
     return (
         <BottomNavigation
             className={classes.root}
@@ -54,5 +55,5 @@ const BottomBanner = (props) => {
             />
         </BottomNavigation>
     );
-}
+};
 export default withStyles(styles)(BottomBanner);

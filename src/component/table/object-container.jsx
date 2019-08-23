@@ -6,9 +6,9 @@ export default function ObjectContainer(props) {
     const {rawJson} = props;
 
     function buildEntryArray(json) {
-        if (json._embedded){
+        if (json._embedded) {
             json = json._embedded;
-            if (json._entries){
+            if (json._entries) {
                 json = json._entries;
             }
         }
@@ -31,6 +31,7 @@ export default function ObjectContainer(props) {
                 array.push(json);
             }
         }
+
         function handleEntry(json) {
             Object.keys(json).forEach(key => {
                 if (key !== "_links") {

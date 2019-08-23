@@ -11,7 +11,7 @@ export default function History(props) {
 
     return (
         <Box justifyContent="center" m={3}>
-            <Breadcrumbs aria-label="breadcrumb" maxItems={4}>
+            <Breadcrumbs aria-label="breadcrumb" maxItems={4} component='nav'>
 
                 {historyCollection.map(entry => {
                         if (entry !== '') {
@@ -30,6 +30,7 @@ export default function History(props) {
                                 );
                             }
                         }
+                        return null;
                     }
                 )}
 

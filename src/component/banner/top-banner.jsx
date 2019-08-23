@@ -11,10 +11,11 @@ const styles = theme => ({
     appBar: {
         padding: theme.spacing(1),
     },
-})
+});
 
 const TopBanner = (props) => {
     const {classes} = props;
-    return <AppBar className={classes.appBar} position="static"><img className={classes.logo} src={Logo}/></AppBar>;
-}
+    return <AppBar className={classes.appBar} position="static"><img className={classes.logo} src={Logo}
+                                                                     alt="FINT-logo"/></AppBar>;
+};
 export default withStyles(styles)(TopBanner);

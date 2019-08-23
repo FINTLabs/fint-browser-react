@@ -67,8 +67,9 @@ const SelectionBanner = (props) => {
         useEffect(() => {
                 console.log("UseEffect() kjøres.....");
                 setComponentLabelWidth(inputLabelComponent.current.offsetWidth);
-                if (!objectSelectionHidden)
+                if (!objectSelectionHidden) {
                     setObjectLabelWidth(inputLabelObject.current.offsetWidth);
+                }
                 if (selectedComponent !== '') {
                     /*fetch("https://play-with-fint.felleskomponent.no" + selectedComponent)
                         .then(res => res.json())
@@ -84,7 +85,7 @@ const SelectionBanner = (props) => {
                     }
                     setListWithObjects(Object.keys(json));
                 }
-            }, [selectedComponent]
+            }, [selectedComponent, objectSelectionHidden]
         );
 
         function handleComponentSelectChange(event) {
@@ -181,7 +182,7 @@ const SelectionBanner = (props) => {
                 <Button
                     variant="contained"
                     className={classes.button}
-                    onClick={() => onClick("https://play-with-fint.felleskomponent.no"+values.component+"/"+values.object+"/"+values.identificator+"/"+values.identificatorValue)}
+                    onClick={() => onClick("https://play-with-fint.felleskomponent.no" + values.component + "/" + values.object + "/" + values.identificator + "/" + values.identificatorValue)}
                 >
                     Finn
                 </Button>}

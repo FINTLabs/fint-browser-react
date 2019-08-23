@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Card, MuiThemeProvider} from "@material-ui/core";
+import {Box, Card, createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import TopBanner from "./component/banner/top-banner";
 import History from "./component/history/history";
 import ObjectContainer from "./component/table/object-container";
 import Divider from "@material-ui/core/Divider";
 import LinkContainer from "./component/relation/link-container";
 import BottomBanner from "./component/banner/bottom-banner";
-import {createMuiTheme} from "@material-ui/core";
 import SelectionBanner from "./component/felleskomponent-dropdown/selection-banner";
 
 const theme = createMuiTheme({
@@ -28,7 +27,7 @@ const theme = createMuiTheme({
 
 const App = () => {
     const [url, setURL] = useState('');
-    const [componentListURL, setListURL] = useState('https://admin.fintlabs.no/api/components/configurations');
+    const [componentListURL] = useState('https://admin.fintlabs.no/api/components/configurations');
     const [rawComponentList, setRawList] = useState('');
     let [json, setJson] = useState('');
     let [history, setHistory] = useState([url]);
@@ -43,9 +42,9 @@ const App = () => {
         fetch(componentListURL)
             .then(res => res.json())
             .then((result) => {
-                    setRawList(result);
+                setRawList(result);
             });
-    }, [url]);
+    }, [url, rawComponentList, componentListURL]);
 
     function navigate(href) {
         setHistory(history.concat(href));

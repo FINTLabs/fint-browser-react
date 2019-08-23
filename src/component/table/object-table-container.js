@@ -11,7 +11,7 @@ const ObjectTableContainer = (props) => {
         let tempCollection = [];
 
         if (isArray(entries[i])) {
-                tempCollection = [];
+            tempCollection = [];
             for (let j = 0; j < entries[i].length; j) {
                 tempCollection.push(entries[i][j]);
 
@@ -19,7 +19,7 @@ const ObjectTableContainer = (props) => {
                     tempCollection.push(entries[i][j]);
                 }
             }
-                collection.push(<ObjectTable data={tempCollection}/>);
+            collection.push(<ObjectTable data={tempCollection}/>);
             i++;
         } else {
             tempCollection.push(entries[i]);
