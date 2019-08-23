@@ -6,7 +6,7 @@ export function getDomainPackageClass(path) {
 
         if (j + 1 === pathParts.length) {
             newPath = newPath + pathParts[j];
-        } else {
+        } else{
             newPath = newPath + pathParts[j] + "/";
         }
 

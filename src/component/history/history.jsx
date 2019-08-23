@@ -14,21 +14,24 @@ export default function History(props) {
             <Breadcrumbs aria-label="breadcrumb" maxItems={4}>
 
                 {historyCollection.map(entry => {
-                    let historyButtonText = getDomainPackageClass(entry);
-                    if (entry === historyCollection[historyCollection.length - 1]) {
-                        return <Typography color="textPrimary">{historyButtonText}</Typography>;
-                    } else {
-                        return (
-                            <Link
-                                component={"button"}
-                                color={"inherit"}
-                                onClick={() => onClick(entry)}
-                            >
-                                {historyButtonText}
-                            </Link>
-                        );
+                        if (entry !== '') {
+                            let historyButtonText = getDomainPackageClass(entry);
+                            if (entry === historyCollection[historyCollection.length - 1]) {
+                                return <Typography color="textPrimary">{historyButtonText}</Typography>;
+                            } else {
+                                return (
+                                    <Link
+                                        component={"button"}
+                                        color={"inherit"}
+                                        onClick={() => onClick(entry)}
+                                    >
+                                        {historyButtonText}
+                                    </Link>
+                                );
+                            }
+                        }
                     }
-                })}
+                )}
 
             </Breadcrumbs>
         </Box>

@@ -9,7 +9,7 @@ const styles = theme => ({
     root: {
         width: '100%',
         background: theme.palette.primary.main,
-        position: 'fixed',
+        position: 'relative',
         bottom: 0,
     },
     contact: {

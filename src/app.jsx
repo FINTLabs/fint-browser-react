@@ -7,6 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import LinkContainer from "./component/relation/link-container";
 import BottomBanner from "./component/banner/bottom-banner";
 import {createMuiTheme} from "@material-ui/core";
+import SelectionBanner from "./component/felleskomponent-dropdown/selection-banner";
 
 const theme = createMuiTheme({
     palette: {
@@ -26,9 +27,11 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-    const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/person/fodselsnummer/18010197461');
+    const [url, setURL] = useState('');
+    const [componentListURL, setListURL] = useState('https://admin.fintlabs.no/api/components/configurations');
+    const [rawComponentList, setRawList] = useState('');
     let [json, setJson] = useState('');
-    let [history, addHistory] = useState([url]);
+    let [history, setHistory] = useState([url]);
 
     useEffect(() => {
         fetch(url)
@@ -36,31 +39,36 @@ const App = () => {
             .then((result) => {
                     setJson(result);
                 }
-            )
+            );
+        fetch(componentListURL)
+            .then(res => res.json())
+            .then((result) => {
+                    setRawList(result);
+            });
     }, [url]);
 
-    function setNewState(href) {
-        let newHistory = history.concat(href);
-        addHistory(newHistory);
+    function navigate(href) {
+        setHistory(history.concat(href));
         setURL(href);
     }
 
-    function resetHistory(string) {
-        setURL(string);
-        addHistory([string]);
+    function reset(url) {
+        setURL(url);
+        setHistory([url]);
     }
 
     return (
         <MuiThemeProvider theme={theme}>
             <TopBanner/>
+            <SelectionBanner onClick={reset} rawList={rawComponentList}/>
             <History style={{background: '#333333', margin: 'auto'}} historyCollection={history}
-                     onClick={resetHistory}/>
+                     onClick={reset}/>
             <Box m={2}>
                 <Card>
                     <ObjectContainer rawJson={json}/>
                     <Divider/>
                     <Box m={2}>
-                        <LinkContainer object={json} onClick={setNewState}/>
+                        <LinkContainer object={json} onClick={navigate}/>
                     </Box>
                 </Card>
             </Box>

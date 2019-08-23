@@ -1,0 +1,50 @@
+{
+  "basisgruppe": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/basisgruppe",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/utdanning/elev"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/basisgruppe/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/basisgruppe/last-updated"
+  },
+  "elevforhold": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/elevforhold",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/utdanning/elev"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/elevforhold/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/elevforhold/last-updated"
+  },
+  "kontaktlarergruppe": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/kontaktlarergruppe",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/utdanning/elev"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/kontaktlarergruppe/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/kontaktlarergruppe/last-updated"
+  },
+  "kontaktperson": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/kontaktperson",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/utdanning/elev"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/kontaktperson/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/kontaktperson/last-updated"
+  },
+  "medlemskap": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/medlemskap",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/utdanning/elev"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/medlemskap/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/medlemskap/last-updated"
+  },
+  "undervisningsforhold": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/undervisningsforhold",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/utdanning/elev"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/undervisningsforhold/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/utdanning/elev/undervisningsforhold/last-updated"
+  }
+}
