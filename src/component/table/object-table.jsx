@@ -23,8 +23,11 @@ const ObjectTable = (props) => {
         <Card className={classes.card}>
             <Table
                 size={"small"}
-                className={classes.table}>
-                {data.map(entry => <AttributeRow data={entry} depth={0}/>)}
+                className={classes.table}
+            >
+                <tbody>
+                {data.map((entry, index) => <AttributeRow key={index} data={entry} depth={0}/>)}
+                </tbody>
             </Table>
         </Card>
     );

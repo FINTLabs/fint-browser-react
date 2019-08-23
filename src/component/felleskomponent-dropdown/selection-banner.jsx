@@ -4,10 +4,11 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import MenuItem from "@material-ui/core/MenuItem";
-import {Box, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {isArray} from "../../utils/json-extracting-helpers";
+import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -112,7 +113,7 @@ const SelectionBanner = (props) => {
         };
         const classes = useStyles();
         return (
-            <Box>
+            <Card>
                 <FormControl variant="outlined" className={classes.componentControl}>
                     <InputLabel ref={inputLabelComponent} htmlFor="outlined-component-simple">
                         Komponent
@@ -186,7 +187,7 @@ const SelectionBanner = (props) => {
                 >
                     Finn
                 </Button>}
-            </Box>
+            </Card>
         );
     }
 ;

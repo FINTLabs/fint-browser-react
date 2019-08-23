@@ -26,13 +26,14 @@ const Links = (props) => {
                 if (links[key][i].hasOwnProperty("href")) {
                     let buttonText = getDomainPackageClass(links[key][i].href);
                     linksCollection.push(
-                        <Box alignItems="baseline" display="flex">
+                        <Box key={key + i} alignItems="baseline" display="flex">
                             <Typography variant="caption" className={classes.relationLabel}>
                                 {capitalize(key)}:
                             </Typography>
-                            <Link component="button"
-                                  className={classes.link}
-                                  onClick={() => onClick(links[key][i].href)}
+                            <Link
+                                component="button"
+                                className={classes.link}
+                                onClick={() => onClick(links[key][i].href)}
                             >
                                 {buttonText}
                             </Link>

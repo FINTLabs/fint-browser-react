@@ -1,6 +1,6 @@
 import React from 'react';
 import {withStyles} from "@material-ui/core/styles";
-import {BottomNavigation, Typography} from "@material-ui/core";
+import {BottomNavigation} from "@material-ui/core";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import HomeIcon from "@material-ui/icons/Home";
@@ -9,7 +9,7 @@ const styles = theme => ({
     root: {
         width: '100%',
         background: theme.palette.primary.main,
-        position: 'relative',
+        position: 'fixed',
         bottom: 0,
     },
     contact: {
@@ -30,26 +30,27 @@ const styles = theme => ({
 
 const BottomBanner = (props) => {
     const {classes} = props;
-    // noinspection HtmlDeprecatedAttribute
     return (
         <BottomNavigation
             className={classes.root}
-            position="static"
-            showLabels
         >
             <BottomNavigationAction
                 className={classes.contact}
                 label="Kontakt oss"
                 icon={<ContactSupportIcon/>}
+                showLabel
                 href="mailto:post@fintlabs.no"
             />
-            <Typography className={classes.information} align="justify">
-                Fint forvaltes av Vigo IKS på vegne av fylkeskommunene
-            </Typography>
+            <BottomNavigationAction
+                className={classes.information}
+                label="Fint forvaltes av Vigo IKS på vegne av fylkeskommunene"
+                showLabel
+            />
             <BottomNavigationAction
                 className={classes.homepage}
                 icon={<HomeIcon/>}
                 label="www.vigoiks.no"
+                showLabel
                 href="http://www.vigoiks.no"
 
             />
