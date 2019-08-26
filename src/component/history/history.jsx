@@ -6,8 +6,7 @@ import {Box, Card} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
 export default function History(props) {
-    const {historyCollection} = props;
-    const {onClick} = props;
+    const {historyCollection, onClick} = props;
 
     return (
         <Card><Box justifyContent="center" m={3}>

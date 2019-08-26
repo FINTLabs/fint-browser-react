@@ -6,7 +6,7 @@ import ObjectContainer from "./component/table/object-container";
 import Divider from "@material-ui/core/Divider";
 import LinkContainer from "./component/relation/link-container";
 import BottomBanner from "./component/banner/bottom-banner";
-import SelectionBanner from "./component/felleskomponent-dropdown/selection-banner";
+import UserSelection from "./component/felleskomponent-selection/user_selection";
 
 const theme = createMuiTheme({
     palette: {
@@ -59,7 +59,7 @@ const App = () => {
     return (
         <MuiThemeProvider theme={theme}>
             <TopBanner/>
-            <SelectionBanner onClick={reset} rawList={rawComponentList}/>
+            <UserSelection onClick={reset} rawList={rawComponentList}/>
             <History style={{background: '#333333', margin: 'auto'}} historyCollection={history}
                      onClick={reset}/>
             <Box m={2}>
