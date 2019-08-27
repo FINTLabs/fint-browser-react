@@ -32,7 +32,7 @@ const ComponentSelector = (props) => {
             >
                 {componentList.map(entry => {
                         return (
-                            <MenuItem value={entry}>{entry}</MenuItem>
+                            <MenuItem key={entry} value={entry}>{entry}</MenuItem>
                         );
                 })}
             </Select>

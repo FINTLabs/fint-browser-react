@@ -1,5 +1,4 @@
 import React from 'react';
-import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const IdentificatorSelector = (props) => {
     const classes = useStyles();
-    const { inputLabelIdentificator, identificatorLabelWidth, onChange, values, componentObjectIdentificators} = props;
+    const {inputLabelIdentificator, identificatorLabelWidth, onChange, values, componentObjectIdentificators} = props;
     return (
         <FormControl variant="outlined" className={classes.identificatorControl}>
             <InputLabel ref={inputLabelIdentificator} htmlFor="outlined-identificator-simple">
