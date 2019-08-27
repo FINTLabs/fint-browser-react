@@ -1,0 +1,78 @@
+{
+  "arbeidsforhold": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/arbeidsforhold",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/arbeidsforhold/systemid/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/arbeidsforhold/systemid/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/arbeidsforhold/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/arbeidsforhold/last-updated"
+  },
+  "fastlonn": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fastlonn",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/fastlonn/systemid/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/fastlonn/systemid/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fastlonn/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fastlonn/last-updated"
+  },
+  "fasttillegg": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fasttillegg",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/fasttillegg/systemid/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/fasttillegg/systemid/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fasttillegg/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fasttillegg/last-updated"
+  },
+  "fravar": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fravar",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/fravar/systemid/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/fravar/systemid/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fravar/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/fravar/last-updated"
+  },
+  "kontaktperson": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/kontaktperson",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/kontaktperson/systemid/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/kontaktperson/systemid/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/kontaktperson/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/kontaktperson/last-updated"
+  },
+  "person": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/person",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/person/fodselsnummer/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/person/fodselsnummer/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/person/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/person/last-updated"
+  },
+  "personalressurs": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/ansattnummer/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/brukernavn/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/systemid/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/ansattnummer/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/brukernavn/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/systemid/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/personalressurs/last-updated"
+  },
+  "variabellonn": {
+    "collectionUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/variabellonn",
+    "oneUrl": [
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/variabellonn/systemid/{id:.+}",
+      "https://play-with-fint.felleskomponent.no/administrasjon/personal/variabellonn/systemid/{id:.+}"
+    ],
+    "cacheSizeUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/variabellonn/cache/size",
+    "lastUpdatedUrl": "https://play-with-fint.felleskomponent.no/administrasjon/personal/variabellonn/last-updated"
+  }
+}
