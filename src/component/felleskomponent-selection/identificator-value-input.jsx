@@ -19,7 +19,7 @@ const IdentificatorValueInput = (props) => {
             onChange={onChange("identificatorValue")}
             margin="normal"
             variant="outlined"
-            required="true"
+            required={true}
             disabled={identificatorDisabled}
         />
     );
