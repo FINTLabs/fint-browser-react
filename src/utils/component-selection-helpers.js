@@ -3,9 +3,11 @@ import {isArray} from "./json-extracting-helpers";
 export function getListOfContainers(json) {
     let list = [];
     if (isArray(json)) {
-        list.push(json.map(entry => {
-            return entry.path;
-        }));
+        json.forEach(entry => {
+            if (entry.inPlayWithFint) {
+                list.push(entry.path);
+            }
+        });
     }
     return list;
 }
@@ -15,10 +17,10 @@ export function createURL(values) {
 }
 
 function uniq(array) {
-    return array.reduce(function(a,b){
-        if (a.indexOf(b) < 0 ) a.push(b);
+    return array.reduce(function (a, b) {
+        if (a.indexOf(b) < 0) a.push(b);
         return a;
-    },[]);
+    }, []);
 }
 
 export function getIdentificators(json, object) {
