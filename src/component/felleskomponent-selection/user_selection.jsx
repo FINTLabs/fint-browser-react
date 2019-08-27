@@ -13,9 +13,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexWrap: 'wrap',
     },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
     button: {
         margin: theme.spacing(2),
     },
@@ -31,13 +28,16 @@ const UserSelection = (props) => {
         });
         const [selectedComponent, setSelectedComponent] = useState('');
         const [objectList, setObjectList] = useState([]);
-        const [componentObjectIdentificators, setIdentificators] = useState([]);
+        const [identificatorList, setIdentificatorList] = useState([]);
         const [objectSelectionHidden, setObjectSelectHidden] = useState(true);
         const [identificationFieldsHidden, setIdentificationFieldsHidden] = useState(true);
-        const [objectLabelWidth, setObjectLabelWidth] = useState(0);
         const [componentLabelWidth, setComponentLabelWidth] = useState(0);
+        const [objectLabelWidth, setObjectLabelWidth] = useState(0);
+        const [identificatorLabelWidth, setIdentificatorLabelWidth] = useState(0);
+
         const inputLabelObject = useRef(null);
         const inputLabelComponent = useRef(null);
+        const inputLabelIdentificator = useRef(null);
         let {rawList, onClick} = props;
         let componentList = getListOfContainers(rawList);
         const classes = useStyles();
@@ -76,10 +76,16 @@ const UserSelection = (props) => {
             fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
                 .then(res => res.json())
                 .then((result) => {
-                    console.log("Mine identifikatorer: ", getIdentificators(result,event.target.value));
-                    setIdentificators(getIdentificators(result, event.target.value) );
+                        setIdentificatorList(getIdentificators(result, event.target.value));
                     }
                 );
+        }
+        function handleSelectIdentificatorChange(event) {
+            setIdentificatorLabelWidth(inputLabelIdentificator.current.offsetWidth);
+            setValues(oldValues => ({
+                ...oldValues,
+                [event.target.name]: event.target.value,
+            }));
         }
 
         const handleTextChange = name => event => {
@@ -87,6 +93,7 @@ const UserSelection = (props) => {
         };
         return (
             <Card>
+
                 <ComponentSelector
                     inputLabelComponent={inputLabelComponent}
                     componentLabelWidth={componentLabelWidth}
@@ -104,8 +111,11 @@ const UserSelection = (props) => {
                 />}
                 {!identificationFieldsHidden &&
                 <IdentificatorSelector
+                    inputLabelIdentificator={inputLabelIdentificator}
+                    identificatorLabelWidth={identificatorLabelWidth}
                     values={values}
-                    onChange={handleTextChange}
+                    onChange={handleSelectIdentificatorChange}
+                    componentObjectIdentificators={identificatorList}
                 />}
                 {!identificationFieldsHidden &&
                 <IdentificatorValueInput

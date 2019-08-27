@@ -59,9 +59,11 @@ const App = () => {
     return (
         <MuiThemeProvider theme={theme}>
             <TopBanner/>
+            <Box m={2}>
             <UserSelection onClick={reset} rawList={rawComponentList}/>
-            <History style={{background: '#333333', margin: 'auto'}} historyCollection={history}
+            <History historyCollection={history}
                      onClick={reset}/>
+            </Box>
             <Box m={2}>
                 <Card>
                     <ObjectContainer rawJson={json}/>
