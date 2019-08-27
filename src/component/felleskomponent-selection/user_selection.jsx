@@ -34,6 +34,7 @@ const UserSelection = (props) => {
         const [componentLabelWidth, setComponentLabelWidth] = useState(0);
         const [objectLabelWidth, setObjectLabelWidth] = useState(0);
         const [identificatorLabelWidth, setIdentificatorLabelWidth] = useState(0);
+        const [identificatorValueDisabled, setIdentificatorValueDisabled] = useState(true);
 
         const inputLabelObject = useRef(null);
         const inputLabelComponent = useRef(null);
@@ -60,9 +61,15 @@ const UserSelection = (props) => {
         function handleComponentSelectChange(event) {
             setObjectSelectHidden(false);
             setSelectedComponent(event.target.value);
+            setIdentificationFieldsHidden(true);
+            setIdentificatorList([]);
+            setIdentificatorValueDisabled(true);
 
             setValues(oldValues => ({
                 ...oldValues,
+                identificator: '',
+                identificatorValue: '',
+                object:'',
                 [event.target.name]: event.target.value,
             }));
         }
@@ -70,9 +77,12 @@ const UserSelection = (props) => {
         function handleObjectSelectChange(event) {
             setValues(oldValues => ({
                 ...oldValues,
+                identificator: '',
+                identificatorValue: '',
                 [event.target.name]: event.target.value,
             }));
             setIdentificationFieldsHidden(false);
+            setIdentificatorValueDisabled(true);
             fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
                 .then(res => res.json())
                 .then((result) => {
@@ -86,6 +96,7 @@ const UserSelection = (props) => {
                 ...oldValues,
                 [event.target.name]: event.target.value,
             }));
+            setIdentificatorValueDisabled(event.target.value === '');
         }
 
         const handleTextChange = name => event => {
@@ -121,6 +132,7 @@ const UserSelection = (props) => {
                 <IdentificatorValueInput
                     values={values}
                     onChange={handleTextChange}
+                    identificatorDisabled={identificatorValueDisabled}
                 />}
                 {!identificationFieldsHidden &&
                 <Button
