@@ -27,7 +27,7 @@ const theme = createMuiTheme({
 
 const App = () => {
     const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/elev/brukernavn/Yougung');
-    const [componentListURL] = useState('https://admin.fintlabs.no/api/components/configurations');
+    const componentListURL = 'https://admin.fintlabs.no/api/components/configurations';
     const [rawComponentList, setRawList] = useState('');
     let [json, setJson] = useState('');
     let [history, setHistory] = useState([url]);
@@ -44,7 +44,7 @@ const App = () => {
             .then((result) => {
                 setRawList(result);
             });
-    }, [url, rawComponentList, componentListURL]);
+    }, [url]);
 
     function navigate(href) {
         setHistory(history.concat(href));
