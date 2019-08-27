@@ -39,7 +39,7 @@ const UserSelection = (props) => {
         const inputLabelComponent = useRef(null);
         const inputLabelIdentificator = useRef(null);
         let {rawList, onClick} = props;
-        let componentList = getListOfContainers(rawList);
+        let componentList = getListOfContainers(rawList).sort();
         const classes = useStyles();
 
         useEffect(() => {

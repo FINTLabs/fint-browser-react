@@ -31,13 +31,9 @@ const ComponentSelector = (props) => {
                     id="outlined-component-simple"/>}
             >
                 {componentList.map(entry => {
-                    entry.sort();
-                    return (entry.map(listItem => {
                         return (
-                            <MenuItem value={listItem}>{listItem}</MenuItem>
+                            <MenuItem value={entry}>{entry}</MenuItem>
                         );
-                    }));
-
                 })}
             </Select>
         </FormControl>
