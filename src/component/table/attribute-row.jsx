@@ -33,9 +33,11 @@ const AttributeRow = (props) => {
     } else {
         if (depth === 0) {
             return (
-                <TableCell className={classes.tableCellHeader}>
-                    {capitalize(data)}
-                </TableCell>
+                <TableRow>
+                    <TableCell className={classes.tableCellHeader}>
+                        {capitalize(data)}
+                    </TableCell>
+                </TableRow>
             );
         } else {
             return (

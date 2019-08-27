@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from "@material-ui/core/Card";
 import Table from "@material-ui/core/Table";
-import {makeStyles} from "@material-ui/core";
+import {makeStyles, TableRow} from "@material-ui/core";
 import AttributeRow from "./attribute-row";
 
 const useStyles = makeStyles(theme => ({
