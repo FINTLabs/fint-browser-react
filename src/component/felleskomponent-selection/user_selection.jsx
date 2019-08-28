@@ -59,8 +59,7 @@ const UserSelection = (props) => {
                     )
                     .catch(error => console.log(error));
             }, [selectedComponent, objectSelectionHidden]
-        )
-        ;
+        );
 
         function handleComponentSelectChange(event) {
             setObjectSelectHidden(false);
@@ -68,14 +67,14 @@ const UserSelection = (props) => {
             setIdentificationFieldsHidden(true);
             setIdentificatorList([]);
             setIdentificatorValueDisabled(true);
+            setConfirmButtonDisabled(true);
 
-            setValues(oldValues => ({
-                ...oldValues,
+            setValues({
                 identificator: '',
                 identificatorValue: '',
                 object: '',
                 [event.target.name]: event.target.value,
-            }));
+            });
         }
 
         function handleObjectSelectChange(event) {
@@ -87,6 +86,7 @@ const UserSelection = (props) => {
             }));
             setIdentificationFieldsHidden(false);
             setIdentificatorValueDisabled(true);
+            setConfirmButtonDisabled(true);
             fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
                 .then(handleFetchError)
                 .then(res => res.json())
@@ -108,9 +108,7 @@ const UserSelection = (props) => {
 
         const handleTextChange = name => event => {
             setValues({...values, [name]: event.target.value});
-            if (values.object !== '' && values.component !== '' && values.identificator!== '' && event.target.value !== ''){
-                setConfirmButtonDisabled(false);
-            }else{setConfirmButtonDisabled(true)}
+            setConfirmButtonDisabled(!(values.object !== '' && values.component !== '' && values.identificator !== '' && event.target.value !== ''));
         };
         return (
             <Card>
