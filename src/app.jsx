@@ -41,7 +41,7 @@ const App = () => {
                     setJson(result);
                 }
             )
-            .catch(error=> console.log(error));
+            .catch(error => console.log(error));
 
         fetch(componentListURL)
             .then(handleFetchError)
@@ -49,7 +49,7 @@ const App = () => {
             .then((result) => {
                 setRawList(result);
             })
-            .catch(error=> console.log(error));
+            .catch(error => console.log(error));
     }, [url]);
 
     function navigate(href) {
@@ -66,9 +66,9 @@ const App = () => {
         <MuiThemeProvider theme={theme}>
             <TopBanner/>
             <Box m={2}>
-            <UserSelection onClick={reset} rawList={rawComponentList}/>
-            <History historyCollection={history}
-                     onClick={reset}/>
+                <UserSelection onClick={reset} rawList={rawComponentList}/>
+                <History historyCollection={history}
+                         onClick={reset}/>
             </Box>
             <Box m={2}>
                 <Card>
