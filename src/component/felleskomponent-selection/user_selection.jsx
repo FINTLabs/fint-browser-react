@@ -36,6 +36,7 @@ const UserSelection = (props) => {
         const [objectLabelWidth, setObjectLabelWidth] = useState(0);
         const [identificatorLabelWidth, setIdentificatorLabelWidth] = useState(0);
         const [identificatorValueDisabled, setIdentificatorValueDisabled] = useState(true);
+        const [confirmButtonDisabled, setConfirmButtonDisabled] = useState(true);
 
         const inputLabelObject = useRef(null);
         const inputLabelComponent = useRef(null);
@@ -56,7 +57,7 @@ const UserSelection = (props) => {
                             setObjectList(Object.keys(result));
                         }
                     )
-                    .catch(error=> console.log(error));
+                    .catch(error => console.log(error));
             }, [selectedComponent, objectSelectionHidden]
         )
         ;
@@ -72,7 +73,7 @@ const UserSelection = (props) => {
                 ...oldValues,
                 identificator: '',
                 identificatorValue: '',
-                object:'',
+                object: '',
                 [event.target.name]: event.target.value,
             }));
         }
@@ -93,8 +94,9 @@ const UserSelection = (props) => {
                         setIdentificatorList(getIdentificators(result, event.target.value));
                     }
                 )
-                .catch(error=> console.log(error));
+                .catch(error => console.log(error));
         }
+
         function handleSelectIdentificatorChange(event) {
             setIdentificatorLabelWidth(inputLabelIdentificator.current.offsetWidth);
             setValues(oldValues => ({
@@ -106,6 +108,9 @@ const UserSelection = (props) => {
 
         const handleTextChange = name => event => {
             setValues({...values, [name]: event.target.value});
+            if (values.object !== '' && values.component !== '' && values.identificator!== '' && event.target.value !== ''){
+                setConfirmButtonDisabled(false);
+            }else{setConfirmButtonDisabled(true)}
         };
         return (
             <Card>
@@ -140,6 +145,7 @@ const UserSelection = (props) => {
                     identificatorDisabled={identificatorValueDisabled}
                 />}
                 {!identificationFieldsHidden &&
+                !confirmButtonDisabled &&
                 <Button
                     variant="contained"
                     className={classes.button}
