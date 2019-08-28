@@ -7,6 +7,7 @@ import ComponentSelector from "./component-selector";
 import ObjectSelector from "./object-selector";
 import IdentificatorSelector from "./identificator-selector";
 import IdentificatorValueInput from "./identificator-value-input";
+import handleFetchError from "../../utils/handle-fetch-error";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,11 +50,13 @@ const UserSelection = (props) => {
                     setObjectLabelWidth(inputLabelObject.current.offsetWidth);
                 }
                 fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
+                    .then(handleFetchError)
                     .then(res => res.json())
                     .then((result) => {
                             setObjectList(Object.keys(result));
                         }
-                    );
+                    )
+                    .catch(error=> console.log(error));
             }, [selectedComponent, objectSelectionHidden]
         )
         ;
@@ -84,11 +87,13 @@ const UserSelection = (props) => {
             setIdentificationFieldsHidden(false);
             setIdentificatorValueDisabled(true);
             fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
+                .then(handleFetchError)
                 .then(res => res.json())
                 .then((result) => {
                         setIdentificatorList(getIdentificators(result, event.target.value));
                     }
-                );
+                )
+                .catch(error=> console.log(error));
         }
         function handleSelectIdentificatorChange(event) {
             setIdentificatorLabelWidth(inputLabelIdentificator.current.offsetWidth);

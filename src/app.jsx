@@ -7,6 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import LinkContainer from "./component/relation/link-container";
 import BottomBanner from "./component/banner/bottom-banner";
 import UserSelection from "./component/felleskomponent-selection/user_selection";
+import handleFetchError from "./utils/handle-fetch-error";
 
 const theme = createMuiTheme({
     palette: {
@@ -34,16 +35,21 @@ const App = () => {
 
     useEffect(() => {
         fetch(url)
+            .then(handleFetchError)
             .then(res => res.json())
             .then((result) => {
                     setJson(result);
                 }
-            );
+            )
+            .catch(error=> console.log(error));
+
         fetch(componentListURL)
+            .then(handleFetchError)
             .then(res => res.json())
             .then((result) => {
                 setRawList(result);
-            });
+            })
+            .catch(error=> console.log(error));
     }, [url]);
 
     function navigate(href) {
