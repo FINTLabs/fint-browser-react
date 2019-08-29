@@ -5,7 +5,7 @@ import ObjectTableContainer from "./object-table-container";
 export default function ObjectContainer(props) {
     const {rawJson} = props;
 
-    function buildEntryArray(json) {
+    function buildEntryArray(json, jsonDepth) {
         if (json._embedded) {
             json = json._embedded;
             if (json._entries) {
@@ -34,15 +34,15 @@ export default function ObjectContainer(props) {
 
         function handleEntry(json) {
             Object.keys(json).forEach(key => {
-                if (key !== "_links") {
+                if (key !== "_links" || (key === "_links" && jsonDepth !== 0)) {
                     if (!isStringANumber(key)) {
                         array.push(key);
                     }
-                    array.push(buildEntryArray(json[key]));
+                    array.push(buildEntryArray(json[key], jsonDepth+1));
                 }
             });
         }
     }
 
-    return <ObjectTableContainer entries={buildEntryArray(rawJson)}/>;
+    return <ObjectTableContainer entries={buildEntryArray(rawJson,0)}/>;
 }
