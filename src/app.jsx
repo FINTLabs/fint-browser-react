@@ -27,7 +27,7 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-    const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/utdanning/elev/elev/brukernavn/Yougung');
+    const [url, setURL] = useState('');
     const componentListURL = 'https://admin.fintlabs.no/api/components/configurations';
     const [rawComponentList, setRawList] = useState('');
     let [json, setJson] = useState('');
