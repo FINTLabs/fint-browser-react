@@ -3,7 +3,7 @@ import {isArray, isObject, isStringANumber, isValue} from "../../utils/json-extr
 import ObjectTableContainer from "./object-table-container";
 
 export default function ObjectContainer(props) {
-    const {rawJson} = props;
+    const {rawJson, navigate} = props;
 
     function buildEntryArray(json, jsonDepth) {
         if (json._embedded) {
@@ -44,5 +44,5 @@ export default function ObjectContainer(props) {
         }
     }
 
-    return <ObjectTableContainer entries={buildEntryArray(rawJson,0)}/>;
+    return <ObjectTableContainer navigate={navigate} entries={buildEntryArray(rawJson,0)}/>;
 }

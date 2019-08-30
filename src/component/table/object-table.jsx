@@ -17,8 +17,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ObjectTable = (props) => {
-    const {data} = props;
+    const {data, navigate} = props;
     const classes = useStyles();
+
     return (
         <Card className={classes.card}>
             <Table
@@ -26,7 +27,7 @@ const ObjectTable = (props) => {
                 className={classes.table}
             >
                 <tbody>
-                {data.map((entry, index) => <AttributeRow key={index} data={entry} depth={0}/>)}
+                {data.map((entry, index) => <AttributeRow navigate={navigate} key={index} data={entry} depth={0}/>)}
                 </tbody>
             </Table>
         </Card>
