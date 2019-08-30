@@ -5,6 +5,7 @@ import Links from "./links";
 
 
 export default function LinkContainer(props) {
+    //TODO: Gjør så denne ikke rendrer om du ikke har fått noe innhold.
     return (
         <Box>
             <Typography title="title" component="h5">

@@ -27,7 +27,11 @@ const UserSelection = (props) => {
             identificator: '',
             identificatorValue: '',
         });
+        // TODO: Gjør om så du kan se alle valgene, men at de er disabled før man velger forrige steg.
+        // TODO: Prøve å behandle InputlabelWidth inne i react-componenten og ikke her.
+        // TODO: Prøv å legge kun staten til listen her.
         const [selectedComponent, setSelectedComponent] = useState('');
+        const [componentJson, setComponentJson] = useState('');
         const [objectList, setObjectList] = useState([]);
         const [identificatorList, setIdentificatorList] = useState([]);
         const [objectSelectionHidden, setObjectSelectHidden] = useState(true);
@@ -36,7 +40,6 @@ const UserSelection = (props) => {
         const [objectLabelWidth, setObjectLabelWidth] = useState(0);
         const [identificatorLabelWidth, setIdentificatorLabelWidth] = useState(0);
         const [identificatorValueDisabled, setIdentificatorValueDisabled] = useState(true);
-        const [confirmButtonDisabled, setConfirmButtonDisabled] = useState(true);
 
         const inputLabelObject = useRef(null);
         const inputLabelComponent = useRef(null);
@@ -54,11 +57,12 @@ const UserSelection = (props) => {
                     .then(handleFetchError)
                     .then(res => res.json())
                     .then((result) => {
+                        setComponentJson(result);
                             setObjectList(Object.keys(result));
                         }
                     )
                     .catch(error => console.log(error));
-            }, [selectedComponent, objectSelectionHidden]
+            }, [selectedComponent, objectSelectionHidden, componentJson]
         );
 
         function handleComponentSelectChange(event) {
@@ -67,7 +71,6 @@ const UserSelection = (props) => {
             setIdentificationFieldsHidden(true);
             setIdentificatorList([]);
             setIdentificatorValueDisabled(true);
-            setConfirmButtonDisabled(true);
 
             setValues({
                 identificator: '',
@@ -86,15 +89,7 @@ const UserSelection = (props) => {
             }));
             setIdentificationFieldsHidden(false);
             setIdentificatorValueDisabled(true);
-            setConfirmButtonDisabled(true);
-            fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
-                .then(handleFetchError)
-                .then(res => res.json())
-                .then((result) => {
-                        setIdentificatorList(getIdentificators(result, event.target.value));
-                    }
-                )
-                .catch(error => console.log(error));
+            setIdentificatorList(getIdentificators(componentJson, event.target.value));
         }
 
         function handleSelectIdentificatorChange(event) {
@@ -106,9 +101,11 @@ const UserSelection = (props) => {
             setIdentificatorValueDisabled(event.target.value === '');
         }
 
+        const isValid = () => {
+            return !(values.object !== '' && values.component !== '' && values.identificator !== '' && values.identificatorValue !== '');
+        };
         const handleTextChange = name => event => {
             setValues({...values, [name]: event.target.value});
-            setConfirmButtonDisabled(!(values.object !== '' && values.component !== '' && values.identificator !== '' && event.target.value !== ''));
         };
         return (
             <Card>
@@ -143,8 +140,8 @@ const UserSelection = (props) => {
                     identificatorDisabled={identificatorValueDisabled}
                 />}
                 {!identificationFieldsHidden &&
-                !confirmButtonDisabled &&
                 <Button
+                    disabled={isValid()}
                     variant="contained"
                     className={classes.button}
                     onClick={() => onClick(createURL(values))}
