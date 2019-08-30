@@ -15,10 +15,10 @@ const useStyles = makeStyles(theme => ({
 
 const ComponentSelector = (props) => {
     const classes = useStyles();
-    const {inputLabelComponent, componentLabelWidth, onChange, values, componentList} = props;
+    const {inputLabelComponent, componentLabelWidth, onChange, values, componentList, disabled} = props;
 
     return (
-        <FormControl variant="outlined" className={classes.componentControl}>
+        <FormControl disabled={disabled} variant="outlined" className={classes.componentControl}>
             <InputLabel ref={inputLabelComponent} htmlFor="outlined-component-simple">
                 Komponent
             </InputLabel>

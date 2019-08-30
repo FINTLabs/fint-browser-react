@@ -16,9 +16,9 @@ const useStyles = makeStyles(theme => ({
 
 const IdentificatorSelector = (props) => {
     const classes = useStyles();
-    const {inputLabelIdentificator, identificatorLabelWidth, onChange, values, componentObjectIdentificators} = props;
+    const {inputLabelIdentificator, identificatorLabelWidth, onChange, values, componentObjectIdentificators, disabled} = props;
     return (
-        <FormControl variant="outlined" className={classes.identificatorControl}>
+        <FormControl disabled={disabled} variant="outlined" className={classes.identificatorControl}>
             <InputLabel ref={inputLabelIdentificator} htmlFor="outlined-identificator-simple">
                 Identifikator
             </InputLabel>

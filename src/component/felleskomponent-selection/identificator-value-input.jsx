@@ -10,9 +10,10 @@ const useStyles = makeStyles(theme => ({
 
 const IdentificatorValueInput = (props) => {
     const classes = useStyles();
-    const {values, onChange, identificatorDisabled} = props;
+    const {values, onChange, disabled} = props;
     return (
         <TextField
+            disabled={disabled}
             label="Identifikatorverdi"
             className={classes.textField}
             value={values.identificatorValue}
@@ -20,7 +21,6 @@ const IdentificatorValueInput = (props) => {
             margin="normal"
             variant="outlined"
             required={true}
-            disabled={identificatorDisabled}
         />
     );
 };

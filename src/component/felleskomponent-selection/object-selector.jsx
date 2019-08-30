@@ -16,10 +16,10 @@ const useStyles = makeStyles(theme => ({
 
 const ObjectSelector = (props) => {
     const classes = useStyles();
-    const {inputLabelObject, objectLabelWidth, onChange, values, objectList} = props;
+    const {inputLabelObject, objectLabelWidth, onChange, values, objectList, disabled} = props;
 
     return (
-        <FormControl variant="outlined" className={classes.objectControl}>
+        <FormControl disabled={disabled} variant="outlined" className={classes.objectControl}>
             <InputLabel ref={inputLabelObject} htmlFor="outlined-object-simple">
                 Objekt
             </InputLabel>
