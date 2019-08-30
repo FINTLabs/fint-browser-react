@@ -1,9 +1,10 @@
 import React from 'react';
-import {createRGB, isArray} from "../../utils/json-extracting-helpers";
+import {createRGB, isArray, isValidUrl} from "../../utils/json-extracting-helpers";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import {makeStyles} from "@material-ui/core";
 import capitalize from "capitalize";
+import Link from "@material-ui/core/Link";
 
 
 const useStyles = makeStyles(theme => ({
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const AttributeRow = (props) => {
     const classes = useStyles();
-    const {data, depth} = props;
+    let {data, depth} = props;
 
     if (isArray(data)) {
         return data.map((entry, index) => {
@@ -39,17 +40,28 @@ const AttributeRow = (props) => {
                     </TableCell>
                 </TableRow>
             );
-        } else {
+        } else if (data==='href' || data === '_links'){
+            return null;
+        }
+        else if (isValidUrl(data)){
             return (
                 <TableCell
                     style={{
                         width: '100%',
                         paddingLeft: depth * 15,
-                        color: createRGB(depth)
                     }}>
-                    {data}
+                    <Link component="button">{data}</Link>
                 </TableCell>
             );
+        }else{
+            return (<TableCell
+                style={{
+                    width: '100%',
+                    paddingLeft: depth * 15,
+                    color: createRGB(depth)
+                }}>
+                {data}
+            </TableCell>);
         }
     }
 };

@@ -72,7 +72,7 @@ const App = () => {
             </Box>
             <Box m={2}>
                 <Card>
-                    <ObjectContainer rawJson={json}/>
+                    <ObjectContainer rawJson={json} onClick={navigate}/>
                     <Divider/>
                     <Box m={2}>
                         <LinkContainer object={json} onClick={navigate}/>
