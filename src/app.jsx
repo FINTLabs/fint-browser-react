@@ -52,12 +52,12 @@ const App = () => {
             .catch(error => console.log(error));
     }, [url]);
 
-    function navigate(href) {
+    function addToHistory(href) {
         setHistory(history.concat(href));
         setURL(href);
     }
 
-    function reset(url) {
+    function resetHistory(url) {
         setURL(url);
         setHistory([url]);
     }
@@ -66,16 +66,16 @@ const App = () => {
         <MuiThemeProvider theme={theme}>
             <TopBanner/>
             <Box m={2}>
-                <UserSelection onClick={reset} rawList={rawComponentList}/>
+                <UserSelection onClick={resetHistory} rawList={rawComponentList}/>
                 <History historyCollection={history}
-                         onClick={reset}/>
+                         onClick={resetHistory}/>
             </Box>
             <Box m={2}>
                 <Card>
-                    <ObjectContainer rawJson={json} onClick={navigate}/>
+                    <ObjectContainer rawJson={json} navigate={addToHistory}/>
                     <Divider/>
                     <Box m={2}>
-                        <LinkContainer object={json} onClick={navigate}/>
+                        <LinkContainer object={json} onClick={addToHistory}/>
                     </Box>
                 </Card>
             </Box>

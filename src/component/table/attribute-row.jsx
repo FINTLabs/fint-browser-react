@@ -16,17 +16,17 @@ const useStyles = makeStyles(theme => ({
 
 const AttributeRow = (props) => {
     const classes = useStyles();
-    let {data, depth} = props;
+    let {data, depth, navigate} = props;
 
     if (isArray(data)) {
         return data.map((entry, index) => {
                 if (isArray(entry)) {
                     return (
-                        <AttributeRow key={index} data={entry} depth={depth + 1}/>
+                        <AttributeRow navigate={navigate} key={index} data={entry} depth={depth + 1}/>
                     )
                 } else {
                     return (<TableRow key={index}>
-                        <AttributeRow key={index} data={entry} depth={depth + 1}/>
+                        <AttributeRow navigate={navigate} key={index} data={entry} depth={depth + 1}/>
                     </TableRow>);
                 }
             }
@@ -40,20 +40,27 @@ const AttributeRow = (props) => {
                     </TableCell>
                 </TableRow>
             );
-        } else if (data==='href' || data === '_links'){
+        } else if (data === 'href' || data === '_links') {
             return null;
-        }
-        else if (isValidUrl(data)){
+        } else if (isValidUrl(data)) {
             return (
                 <TableCell
                     style={{
                         width: '100%',
                         paddingLeft: depth * 15,
                     }}>
-                    <Link component="button">{data}</Link>
+                    <Link
+                        onClick={() => {
+                            navigate(data)
+                        }
+                        }
+                        component="button"
+                    >
+                        {data}
+                    </Link>
                 </TableCell>
             );
-        }else{
+        } else {
             return (<TableCell
                 style={{
                     width: '100%',
