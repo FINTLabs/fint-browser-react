@@ -21,7 +21,8 @@ export function createRGB(opacityLevel) {
 export function isValue(data) {
     return (typeof data === "string" || typeof data === "number" || typeof data === "boolean");
 }
-export function isValidUrl(string){
+
+export function isValidUrl(string) {
     try {
         new URL(string);
         return true;

@@ -35,6 +35,7 @@ export function getIdentificators(json, object) {
         }
     }
 }
+
 export function isObjectDisabled(values) {
     return !(values.component !== '');
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -6,7 +6,10 @@ import {
     createURL,
     getIdentificators,
     getListOfContainers,
-    isButtonDisabled, isIdentificatorDisabled, isIdentificatorValueInputDisabled, isObjectDisabled
+    isButtonDisabled,
+    isIdentificatorDisabled,
+    isIdentificatorValueInputDisabled,
+    isObjectDisabled
 } from "../../utils/component-selection-helpers";
 import ComponentSelector from "./component-selector";
 import ObjectSelector from "./object-selector";
@@ -32,46 +35,32 @@ const UserSelection = (props) => {
             identificator: '',
             identificatorValue: '',
         });
-        // TODO: Prøve å behandle InputlabelWidth inne i react-componenten og ikke her.
-        // TODO: Prøv å legge kun staten til listen her.
-        const [selectedComponent, setSelectedComponent] = useState('');
         const [componentJson, setComponentJson] = useState('');
-        const [objectList, setObjectList] = useState([]);
         const [identificatorList, setIdentificatorList] = useState([]);
-        const [componentLabelWidth, setComponentLabelWidth] = useState(0);
-        const [objectLabelWidth, setObjectLabelWidth] = useState(0);
-        const [identificatorLabelWidth, setIdentificatorLabelWidth] = useState(0);
-
-        const inputLabelObject = useRef(null);
-        const inputLabelComponent = useRef(null);
-        const inputLabelIdentificator = useRef(null);
-        let {rawList, onClick} = props;
-        let componentList = getListOfContainers(rawList).sort();
+        const {rawList, onClick} = props;
+        const componentList = getListOfContainers(rawList).sort();
+        const objectList = Object.keys(componentJson);
         const classes = useStyles();
 
         useEffect(() => {
-                setComponentLabelWidth(inputLabelComponent.current.offsetWidth);
-                    setObjectLabelWidth(inputLabelObject.current.offsetWidth);
-                fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
+                fetch("https://play-with-fint.felleskomponent.no" + values.component + "/")
                     .then(handleFetchError)
                     .then(res => res.json())
                     .then((result) => {
-                        setComponentJson(result);
-                            setObjectList(Object.keys(result));
+                            setComponentJson(result);
                         }
                     )
                     .catch(error => console.log(error));
-            }, [selectedComponent, componentJson]
+            }, [values]
         );
 
         function handleComponentSelectChange(event) {
-            setSelectedComponent(event.target.value);
             setIdentificatorList([]);
             setValues({
+                component: event.target.value,
                 identificator: '',
                 identificatorValue: '',
                 object: '',
-                [event.target.name]: event.target.value,
             });
         }
 
@@ -86,7 +75,6 @@ const UserSelection = (props) => {
         }
 
         function handleSelectIdentificatorChange(event) {
-            setIdentificatorLabelWidth(inputLabelIdentificator.current.offsetWidth);
             setValues(oldValues => ({
                 ...oldValues,
                 [event.target.name]: event.target.value,
@@ -99,24 +87,18 @@ const UserSelection = (props) => {
         return (
             <Card>
                 <ComponentSelector
-                    inputLabelComponent={inputLabelComponent}
-                    componentLabelWidth={componentLabelWidth}
                     onChange={handleComponentSelectChange}
                     values={values}
                     componentList={componentList}
                 />
                 <ObjectSelector
                     disabled={isObjectDisabled(values)}
-                    inputLabelObject={inputLabelObject}
-                    objectLabelWidth={objectLabelWidth}
                     onChange={handleObjectSelectChange}
                     values={values}
                     objectList={objectList}
                 />
                 <IdentificatorSelector
                     disabled={isIdentificatorDisabled(values)}
-                    inputLabelIdentificator={inputLabelIdentificator}
-                    identificatorLabelWidth={identificatorLabelWidth}
                     values={values}
                     onChange={handleSelectIdentificatorChange}
                     componentObjectIdentificators={identificatorList}
