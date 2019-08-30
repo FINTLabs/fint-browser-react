@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const UserSelection = (props) => {
+const ManualSelection = (props) => {
         const [values, setValues] = useState({
             component: '',
             object: '',
@@ -121,4 +121,4 @@ const UserSelection = (props) => {
     }
 ;
 
-export default UserSelection;
+export default ManualSelection;

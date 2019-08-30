@@ -6,7 +6,7 @@ import ObjectContainer from "./component/table/object-container";
 import Divider from "@material-ui/core/Divider";
 import LinkContainer from "./component/relation/link-container";
 import BottomBanner from "./component/banner/bottom-banner";
-import UserSelection from "./component/felleskomponent-selection/user_selection";
+import ManualSelection from "./component/felleskomponent-selection/manual-selection";
 import handleFetchError from "./utils/handle-fetch-error";
 
 const theme = createMuiTheme({
@@ -66,7 +66,7 @@ const App = () => {
         <MuiThemeProvider theme={theme}>
             <TopBanner/>
             <Box m={2}>
-                <UserSelection onClick={resetHistory} rawList={rawComponentList}/>
+                <ManualSelection onClick={resetHistory} rawList={rawComponentList}/>
                 <History historyCollection={history}
                          onClick={resetHistory}/>
             </Box>
