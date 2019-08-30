@@ -35,3 +35,18 @@ export function getIdentificators(json, object) {
         }
     }
 }
+export function isObjectDisabled(values) {
+    return !(values.component !== '');
+}
+
+export function isIdentificatorDisabled(values) {
+    return !(values.object !== '' && values.component !== '');
+}
+
+export function isIdentificatorValueInputDisabled(values) {
+    return !(values.object !== '' && values.component !== '' && values.identificator !== '');
+}
+
+export function isButtonDisabled(values) {
+    return !(values.object !== '' && values.component !== '' && values.identificator !== '' && values.identificatorValue !== '');
+}

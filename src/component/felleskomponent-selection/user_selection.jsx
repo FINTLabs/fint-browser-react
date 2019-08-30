@@ -2,7 +2,12 @@ import React, {useEffect, useRef, useState} from 'react';
 import {makeStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import {createURL, getIdentificators, getListOfContainers} from "../../utils/component-selection-helpers";
+import {
+    createURL,
+    getIdentificators,
+    getListOfContainers,
+    isButtonDisabled, isIdentificatorDisabled, isIdentificatorValueInputDisabled, isObjectDisabled
+} from "../../utils/component-selection-helpers";
 import ComponentSelector from "./component-selector";
 import ObjectSelector from "./object-selector";
 import IdentificatorSelector from "./identificator-selector";
@@ -27,19 +32,15 @@ const UserSelection = (props) => {
             identificator: '',
             identificatorValue: '',
         });
-        // TODO: Gjør om så du kan se alle valgene, men at de er disabled før man velger forrige steg.
         // TODO: Prøve å behandle InputlabelWidth inne i react-componenten og ikke her.
         // TODO: Prøv å legge kun staten til listen her.
         const [selectedComponent, setSelectedComponent] = useState('');
         const [componentJson, setComponentJson] = useState('');
         const [objectList, setObjectList] = useState([]);
         const [identificatorList, setIdentificatorList] = useState([]);
-        const [objectSelectionHidden, setObjectSelectHidden] = useState(true);
-        const [identificationFieldsHidden, setIdentificationFieldsHidden] = useState(true);
         const [componentLabelWidth, setComponentLabelWidth] = useState(0);
         const [objectLabelWidth, setObjectLabelWidth] = useState(0);
         const [identificatorLabelWidth, setIdentificatorLabelWidth] = useState(0);
-        const [identificatorValueDisabled, setIdentificatorValueDisabled] = useState(true);
 
         const inputLabelObject = useRef(null);
         const inputLabelComponent = useRef(null);
@@ -50,9 +51,7 @@ const UserSelection = (props) => {
 
         useEffect(() => {
                 setComponentLabelWidth(inputLabelComponent.current.offsetWidth);
-                if (!objectSelectionHidden) {
                     setObjectLabelWidth(inputLabelObject.current.offsetWidth);
-                }
                 fetch("https://play-with-fint.felleskomponent.no" + selectedComponent + "/")
                     .then(handleFetchError)
                     .then(res => res.json())
@@ -62,16 +61,12 @@ const UserSelection = (props) => {
                         }
                     )
                     .catch(error => console.log(error));
-            }, [selectedComponent, objectSelectionHidden, componentJson]
+            }, [selectedComponent, componentJson]
         );
 
         function handleComponentSelectChange(event) {
-            setObjectSelectHidden(false);
             setSelectedComponent(event.target.value);
-            setIdentificationFieldsHidden(true);
             setIdentificatorList([]);
-            setIdentificatorValueDisabled(true);
-
             setValues({
                 identificator: '',
                 identificatorValue: '',
@@ -87,8 +82,6 @@ const UserSelection = (props) => {
                 identificatorValue: '',
                 [event.target.name]: event.target.value,
             }));
-            setIdentificationFieldsHidden(false);
-            setIdentificatorValueDisabled(true);
             setIdentificatorList(getIdentificators(componentJson, event.target.value));
         }
 
@@ -98,18 +91,13 @@ const UserSelection = (props) => {
                 ...oldValues,
                 [event.target.name]: event.target.value,
             }));
-            setIdentificatorValueDisabled(event.target.value === '');
         }
 
-        const isValid = () => {
-            return !(values.object !== '' && values.component !== '' && values.identificator !== '' && values.identificatorValue !== '');
-        };
         const handleTextChange = name => event => {
             setValues({...values, [name]: event.target.value});
         };
         return (
             <Card>
-
                 <ComponentSelector
                     inputLabelComponent={inputLabelComponent}
                     componentLabelWidth={componentLabelWidth}
@@ -117,37 +105,35 @@ const UserSelection = (props) => {
                     values={values}
                     componentList={componentList}
                 />
-                {!objectSelectionHidden &&
                 <ObjectSelector
+                    disabled={isObjectDisabled(values)}
                     inputLabelObject={inputLabelObject}
                     objectLabelWidth={objectLabelWidth}
                     onChange={handleObjectSelectChange}
                     values={values}
                     objectList={objectList}
-                />}
-                {!identificationFieldsHidden &&
+                />
                 <IdentificatorSelector
+                    disabled={isIdentificatorDisabled(values)}
                     inputLabelIdentificator={inputLabelIdentificator}
                     identificatorLabelWidth={identificatorLabelWidth}
                     values={values}
                     onChange={handleSelectIdentificatorChange}
                     componentObjectIdentificators={identificatorList}
-                />}
-                {!identificationFieldsHidden &&
+                />
                 <IdentificatorValueInput
+                    disabled={isIdentificatorValueInputDisabled(values)}
                     values={values}
                     onChange={handleTextChange}
-                    identificatorDisabled={identificatorValueDisabled}
-                />}
-                {!identificationFieldsHidden &&
+                />
                 <Button
-                    disabled={isValid()}
+                    disabled={isButtonDisabled(values)}
                     variant="contained"
                     className={classes.button}
                     onClick={() => onClick(createURL(values))}
                 >
                     Finn
-                </Button>}
+                </Button>
             </Card>
         );
     }
