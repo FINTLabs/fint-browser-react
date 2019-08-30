@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -15,7 +15,13 @@ const useStyles = makeStyles(theme => ({
 
 const ComponentSelector = (props) => {
     const classes = useStyles();
-    const {inputLabelComponent, componentLabelWidth, onChange, values, componentList, disabled} = props;
+    const {onChange, values, componentList, disabled} = props;
+    const [componentLabelWidth, setComponentLabelWidth] = useState(0);
+    const inputLabelComponent = useRef(null);
+
+    useEffect(() => {
+        setComponentLabelWidth(inputLabelComponent.current.offsetWidth);
+    }, [componentLabelWidth]);
 
     return (
         <FormControl disabled={disabled} variant="outlined" className={classes.componentControl}>

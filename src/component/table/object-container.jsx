@@ -38,11 +38,11 @@ export default function ObjectContainer(props) {
                     if (!isStringANumber(key)) {
                         array.push(key);
                     }
-                    array.push(buildEntryArray(json[key], jsonDepth+1));
+                    array.push(buildEntryArray(json[key], jsonDepth + 1));
                 }
             });
         }
     }
 
-    return <ObjectTableContainer navigate={navigate} entries={buildEntryArray(rawJson,0)}/>;
+    return <ObjectTableContainer navigate={navigate} entries={buildEntryArray(rawJson, 0)}/>;
 }
