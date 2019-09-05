@@ -9,7 +9,6 @@ const store = createStore(
     rootReducer,
     initialState,
     applyMiddleware(...middleware)
-
 );
 
 

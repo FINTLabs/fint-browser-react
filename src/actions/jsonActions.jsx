@@ -2,8 +2,9 @@ import {FETCH_JSON, NEW_JSON} from "./types";
 import handleFetchError from "../utils/handle-fetch-error";
 
 export const fetchJson = (url) => dispatch => {
+    console.log("fetching222222");
         fetch(url)
-            .then(handleFetchError)
+            //.then(handleFetchError)
             .then(res => res.json())
             .then((result) => {
                 dispatch({
@@ -12,5 +13,5 @@ export const fetchJson = (url) => dispatch => {
                 })
                 }
             )
-            .catch(error => console.log(error));
+            //.catch(error => console.log(error));
 };

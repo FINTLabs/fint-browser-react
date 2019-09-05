@@ -30,18 +30,15 @@ const theme = createMuiTheme({
     },
 });
 
-
-
 const App = () => {
-    const [url, setURL] = useState('');
+    const [url, setURL] = useState('https://play-with-fint.felleskomponent.no/administrasjon/personal/arbeidsforhold/systemid/100003_1');
     const componentListURL = 'https://admin.fintlabs.no/api/components/configurations';
     const [rawComponentList, setRawList] = useState('');
     let [history, setHistory] = useState([url]);
-    const {json} = this.props;
 
     useEffect(() => {
         console.log("Fetching....")
-        this.props.fetchJson(url);
+        fetchJson(url);
         fetch(componentListURL)
             .then(handleFetchError)
             .then(res => res.json())
@@ -71,10 +68,10 @@ const App = () => {
             </Box>
             <Box m={2}>
                 <Card>
-                    <ObjectContainer rawJson={json} navigate={addToHistory}/>
+                    <ObjectContainer rawJson={this.props.json} navigate={addToHistory}/>
                     <Divider/>
                     <Box m={2}>
-                        <LinkContainer object={json} onClick={addToHistory}/>
+                        <LinkContainer object={this.props.json} onClick={addToHistory}/>
                     </Box>
                 </Card>
             </Box>
@@ -93,4 +90,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, {fetchJson})(App);
+export default connect(mapStateToProps, fetchJson)(App);
