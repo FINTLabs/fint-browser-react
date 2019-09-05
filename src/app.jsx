@@ -8,6 +8,10 @@ import LinkContainer from "./component/relation/link-container";
 import BottomBanner from "./component/banner/bottom-banner";
 import ManualSelection from "./component/felleskomponent-selection/manual-selection";
 import handleFetchError from "./utils/handle-fetch-error";
+import {connect} from "react-redux";
+import {fetchJson} from "./actions/jsonActions";
+import PropTypes from "prop-types"
+
 
 const theme = createMuiTheme({
     palette: {
@@ -26,23 +30,18 @@ const theme = createMuiTheme({
     },
 });
 
+
+
 const App = () => {
     const [url, setURL] = useState('');
     const componentListURL = 'https://admin.fintlabs.no/api/components/configurations';
     const [rawComponentList, setRawList] = useState('');
-    let [json, setJson] = useState('');
     let [history, setHistory] = useState([url]);
+    const {json} = this.props;
 
     useEffect(() => {
-        fetch(url)
-            .then(handleFetchError)
-            .then(res => res.json())
-            .then((result) => {
-                    setJson(result);
-                }
-            )
-            .catch(error => console.log(error));
-
+        console.log("Fetching....")
+        this.props.fetchJson(url);
         fetch(componentListURL)
             .then(handleFetchError)
             .then(res => res.json())
@@ -84,4 +83,14 @@ const App = () => {
     );
 };
 
-export default App;
+App.propTypes = {
+  fetchJson: PropTypes.func.isRequired,
+  json: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+    json: state.json.json
+});
+
+
+export default connect(mapStateToProps, {fetchJson})(App);
